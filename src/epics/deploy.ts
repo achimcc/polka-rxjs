@@ -27,11 +27,11 @@ export const deploy = (action$: ActionsObservable<Action>, state$: any) =>
       );
       const keyring = new Keyring({ type: "sr25519" });
       const alice = keyring.addFromUri("//Alice");
-      const test = contract.signAndSend(alice);
-      return test;
+      const response = contract.signAndSend(alice);
+      return response;
     }),
-    map((tx) => {
-      console.log("nextStep: ", tx);
-      return { type: "Any", payload: {} };
+    map((response) => {
+      console.log("DeployMessage: ", response);
+      return { type: "DeployMessage", payload: response };
     })
   );
