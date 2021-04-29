@@ -1,8 +1,6 @@
 import { UploadChangeParam } from "antd/lib/upload";
-import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import InputFile from "./InputFile";
-import { Button } from "antd";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 

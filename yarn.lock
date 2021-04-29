@@ -10464,37 +10464,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"my-app@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "my-app@workspace:."
-  dependencies:
-    "@ant-design/icons": ^4.6.2
-    "@polkadot/api": ^4.7.2
-    "@polkadot/api-contract": ^4.7.2
-    "@polkadot/types": ^4.7.2
-    "@polkadot/util": ^6.3.1
-    "@testing-library/jest-dom": ^5.11.4
-    "@testing-library/react": ^11.1.0
-    "@testing-library/user-event": ^12.1.10
-    "@types/jest": ^26.0.15
-    "@types/node": ^12.0.0
-    "@types/react": ^17.0.0
-    "@types/react-dom": ^17.0.0
-    "@types/react-redux": ^7.1.16
-    antd: ^4.15.3
-    eslint-config-react-app: ^6.0.0
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-redux: ^7.2.4
-    react-scripts: 4.0.3
-    redux: ^4.1.0
-    redux-observable: ^1.2.0
-    rxjs: ^6.6.7
-    typescript: ^4.1.2
-    web-vitals: ^1.0.1
-  languageName: unknown
-  linkType: soft
-
 "nan@npm:^2.12.1":
   version: 2.14.2
   resolution: "nan@npm:2.14.2"
@@ -11479,6 +11448,37 @@ fsevents@^1.2.7:
   checksum: 39a484182f8fc08cb1420d4a5ccf16457c6498a4546bfbad9e00df7238ba7d98796e9aa6f82a4e803a627860409ffed491a55c5a1384e09bed60cefeb618586d
   languageName: node
   linkType: hard
+
+"polka-rxjs@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "polka-rxjs@workspace:."
+  dependencies:
+    "@ant-design/icons": ^4.6.2
+    "@polkadot/api": ^4.7.2
+    "@polkadot/api-contract": ^4.7.2
+    "@polkadot/types": ^4.7.2
+    "@polkadot/util": ^6.3.1
+    "@testing-library/jest-dom": ^5.11.4
+    "@testing-library/react": ^11.1.0
+    "@testing-library/user-event": ^12.1.10
+    "@types/jest": ^26.0.15
+    "@types/node": ^12.0.0
+    "@types/react": ^17.0.0
+    "@types/react-dom": ^17.0.0
+    "@types/react-redux": ^7.1.16
+    antd: ^4.15.3
+    eslint-config-react-app: ^6.0.0
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    react-redux: ^7.2.4
+    react-scripts: 4.0.3
+    redux: ^4.1.0
+    redux-observable: ^1.2.0
+    rxjs: ^6.6.7
+    typescript: ^4.1.2
+    web-vitals: ^1.0.1
+  languageName: unknown
+  linkType: soft
 
 "portfinder@npm:^1.0.26":
   version: 1.0.28
