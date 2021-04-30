@@ -13,11 +13,11 @@ const Deploy = () => {
   const onChangeGas = (e: any) => setGas(e.target.value);
   const onChangeEndowment = (e: any) => setEndowment(e.target.value);
   const onDeploy = () =>
-    dispatch({ type: "Deploy", payload: { gas: gas, endowment: endowment } });
+    dispatch({ type: "Deploy", payload: { gas, endowment } });
   const { isAbiUploaded, isApiConnected, isWasmUploaded } = useSelector(
     (store: RootState) => store.ui
   );
-  const isReadyToDeploy = isApiConnected && isAbiUploaded && isWasmUploaded;
+  const isReadyToDeploy = isApiConnected && isAbiUploaded;
   return (
     <>
       <UploadAbi />
