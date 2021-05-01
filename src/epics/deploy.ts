@@ -7,13 +7,13 @@ import type { AnyJson } from "@polkadot/types/types";
 import { RawParams } from "./utils/types";
 import { createValue, computeValues } from "./utils/values";
 
-export const deploy = (action$: ActionsObservable<Action>, state$: any) =>
+export const deploy = (action$: ActionsObservable<Action>, store: any) =>
   action$.ofType("Deploy").pipe(
     map((action) => {
-      const api = (state$ as any).value.contract.api as ApiRx;
-      const abi = (state$ as any).value.contract.abi as Abi;
+      const api = (store as any).value.contract.api as ApiRx;
+      const abi = (store as any).value.contract.abi as Abi;
       const wasm = abi.project.source.wasm;
-      const { gas, endowment } = action.payload as any;
+      const { gas, endowment } = store.value.contract;
       const testgas = 155852802980;
       const testendow = 1300889614901161;
       const code = new CodeRx(api, abi, wasm);
