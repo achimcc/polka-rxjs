@@ -8,7 +8,7 @@ import { from } from "rxjs";
 
 export const uploadContract = (
   action$: ActionsObservable<Action>,
-  state$: any
+  store: any
 ) =>
   action$.ofType("UploadAbi").pipe(
     mergeMap((action) => {
@@ -18,7 +18,7 @@ export const uploadContract = (
     }),
     map((arrayBuffer) => JSON.parse(JSON.stringify(arrayBuffer))),
     map((abiJson) => {
-      const api = (state$ as any).value.contract.api as ApiRx;
+      const api = (store as any).value.contract.api as ApiRx;
       const abi = new Abi(abiJson, api.registry.getChainProperties());
       console.log("abi: ", abi);
       return { type: "UploadAbiSuccess", payload: abi };
