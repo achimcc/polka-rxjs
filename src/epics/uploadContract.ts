@@ -6,7 +6,10 @@ import { ApiRx, Keyring } from "@polkadot/api";
 import { CodeRx, Abi, BlueprintRx } from "@polkadot/api-contract";
 import { from } from "rxjs";
 
-export const uploadAbi = (action$: ActionsObservable<Action>, state$: any) =>
+export const uploadContract = (
+  action$: ActionsObservable<Action>,
+  state$: any
+) =>
   action$.ofType("UploadAbi").pipe(
     mergeMap((action) => {
       const promise = ((action as any)

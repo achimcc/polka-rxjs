@@ -3,8 +3,7 @@ import { useDispatch } from "react-redux";
 import { Button } from "antd";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import UploadAbi from "./UploadAbi";
-import UploadWasm from "./UploadWasm";
+import UploadAbi from "./UploadContract";
 
 const Deploy = () => {
   const dispatch = useDispatch();
@@ -21,7 +20,6 @@ const Deploy = () => {
   return (
     <>
       <UploadAbi />
-      <UploadWasm />
       <input onChange={onChangeGas} value={gas} />
       <input onChange={onChangeEndowment} value={endowment} />
       <Button disabled={!isReadyToDeploy} onClick={onDeploy}>
