@@ -30,7 +30,7 @@ const contractReducer = (
       console.log("success wasm!");
       return { ...state, wasm: action.payload as Uint8Array };
     }
-    case "UploadAbiSuccess": {
+    case "UploadContractSuccess": {
       console.log("success abi!");
       return { ...state, abi: action.payload as JSON };
     }

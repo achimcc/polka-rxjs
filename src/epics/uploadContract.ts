@@ -10,7 +10,7 @@ export const uploadContract = (
   action$: ActionsObservable<Action>,
   store: any
 ) =>
-  action$.ofType("UploadAbi").pipe(
+  action$.ofType("UploadContract").pipe(
     mergeMap((action) => {
       const promise = ((action as any)
         .payload as UploadChangeParam).file.originFileObj.text();
@@ -21,6 +21,6 @@ export const uploadContract = (
       const api = (store as any).value.contract.api as ApiRx;
       const abi = new Abi(abiJson, api.registry.getChainProperties());
       console.log("abi: ", abi);
-      return { type: "UploadAbiSuccess", payload: abi };
+      return { type: "UploadContractSuccess", payload: abi };
     })
   );
