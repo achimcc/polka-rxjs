@@ -9,19 +9,25 @@ import { createValue, computeValues } from "./utils/values";
 
 export const deploy = (action$: ActionsObservable<Action>, state$: any) =>
   action$.ofType("Deploy").pipe(
-    mergeMap((action) => {
+    map((action) => {
       const api = (state$ as any).value.contract.api as ApiRx;
       const abi = (state$ as any).value.contract.abi as Abi;
       const wasm = abi.project.source.wasm;
       const { gas, endowment } = action.payload as any;
+      const testgas = 155852802980;
+      const testendow = 1300889614901161;
       const code = new CodeRx(api, abi, wasm);
       const blueprint = code.tx.new(
-        { gasLimit: undefined, value: undefined, salt: null },
+        { gasLimit: testgas, value: testendow, salt: null },
         []
       );
+      return blueprint;
+    }),
+    mergeMap((blueprint) => {
       const keyring = new Keyring({ type: "sr25519" });
       const alice = keyring.addFromUri("//Alice");
-      return blueprint.signAndSend(alice);
+      console.log("alice: ", alice);
+      return blueprint.signAndSend(alice, { tip: 0 });
     }),
     map((response) => {
       console.log("DeployMessage: ", JSON.stringify(response));
