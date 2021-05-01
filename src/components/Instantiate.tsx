@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux";
+import { actions } from "../reducers/contractSlice";
 
 const Instantiate = () => {
   const dispatch = useDispatch();
-  const onInstantiate = () => dispatch({ type: "Connect" });
+  const onInstantiate = () => dispatch(actions.connect());
   return (
     <>
       <button onClick={onInstantiate}>Instantiate</button>

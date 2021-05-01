@@ -1,17 +1,23 @@
 import { ActionsObservable } from "redux-observable";
 import { Action } from "../reducers/actions";
-import { map, mergeMap } from "rxjs/operators";
+import { map, mergeMap, filter } from "rxjs/operators";
 import { ApiRx, Keyring } from "@polkadot/api";
 import { CodeRx, Abi } from "@polkadot/api-contract";
+import convertValues from "../utils/convertValues";
+import { actions } from "../reducers/contractSlice";
 
-export const deploy = (action$: ActionsObservable<Action>, store: any) =>
-  action$.ofType("Deploy").pipe(
+export const deployEpic = (action$: ActionsObservable<Action>, store: any) =>
+  action$.pipe(
+    filter(actions.deploy.match),
     map((action) => {
       const api = (store as any).value.contract.api as ApiRx;
       const abi = (store as any).value.contract.abi as Abi;
       const wasm = abi.project.source.wasm;
-      const { gas, endowment } = store.value.contract;
+      const { Gas, Endowment } = store.value.contract;
       const testgas = 155852802980;
+      const [, gasBN] = convertValues(Gas);
+      const [, endowmentBN] = convertValues(Endowment);
+      console.log("convert: ", gasBN, endowmentBN);
       const testendow = 1300889614901161;
       const code = new CodeRx(api, abi, wasm);
       const blueprint = code.tx.new(
@@ -28,6 +34,6 @@ export const deploy = (action$: ActionsObservable<Action>, store: any) =>
     }),
     map((response) => {
       console.log("DeployMessage: ", JSON.stringify(response));
-      return { type: "DeployMessage", payload: response };
+      return actions.deployMessage(response);
     })
   );

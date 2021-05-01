@@ -21,6 +21,7 @@ const contractReducer = (
   state: ContractState = initialState,
   action: Action
 ): ContractState => {
+  console.log("action: ", action);
   switch (action.type) {
     case "Connected": {
       console.log("Subscribed!", action.payload, state);
@@ -35,11 +36,11 @@ const contractReducer = (
       return { ...state, abi: action.payload as JSON };
     }
     case "SetGas": {
-      console.log("success abi!");
+      console.log("SetGas!");
       return { ...state, Gas: action.payload as number };
     }
     case "SetEndowment": {
-      console.log("success abi!");
+      console.log("SetEndowment!");
       return { ...state, Endowment: action.payload as number };
     }
     default:

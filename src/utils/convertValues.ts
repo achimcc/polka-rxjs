@@ -119,11 +119,11 @@ function getValuesFromBn(valueBn: BN, si: SiDef | null): [string, BN, boolean] {
   return [value, valueBn, true];
 }
 
-export function getValues(
+export default function getValues(
   value: BN | string = BN_ZERO,
-  si: SiDef | null,
-  bitLength: BitLength,
-  isZeroable: boolean,
+  si: SiDef | null = null,
+  bitLength: BitLength = DEFAULT_BITLENGTH,
+  isZeroable: boolean = true,
   maxValue?: BN
 ): [string, BN, boolean] {
   return isBn(value)

@@ -12,6 +12,7 @@ export const uploadContract = (
 ) =>
   action$.ofType("UploadContract").pipe(
     mergeMap((action) => {
+      console.log("step1");
       const promise = ((action as any)
         .payload as UploadChangeParam).file.originFileObj.text();
       return from(promise);

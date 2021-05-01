@@ -2,8 +2,8 @@ import { combineReducers } from "redux";
 import { combineEpics } from "redux-observable";
 import contractReducer from "../reducers/contract";
 import uiReducer from "../reducers/ui";
-import { connect } from "../epics/connect";
-import { deploy } from "../epics/deploy";
+import { connectEpic } from "../epics/connect";
+import { deployEpic } from "../epics/deploy";
 import { uploadContract } from "../epics/uploadContract";
 import { Action } from "../reducers/actions";
 
@@ -13,7 +13,7 @@ export const rootReducer = combineReducers({
 });
 
 export const rootEpic = combineEpics<Action, Action>(
-  connect,
-  deploy,
+  connectEpic,
+  deployEpic,
   uploadContract
 );
