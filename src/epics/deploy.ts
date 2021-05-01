@@ -2,10 +2,7 @@ import { ActionsObservable } from "redux-observable";
 import { Action } from "../reducers/actions";
 import { map, mergeMap } from "rxjs/operators";
 import { ApiRx, Keyring } from "@polkadot/api";
-import { CodeRx, Abi, BlueprintRx } from "@polkadot/api-contract";
-import type { AnyJson } from "@polkadot/types/types";
-import { RawParams } from "./utils/types";
-import { createValue, computeValues } from "./utils/values";
+import { CodeRx, Abi } from "@polkadot/api-contract";
 
 export const deploy = (action$: ActionsObservable<Action>, store: any) =>
   action$.ofType("Deploy").pipe(
@@ -34,10 +31,3 @@ export const deploy = (action$: ActionsObservable<Action>, store: any) =>
       return { type: "DeployMessage", payload: response };
     })
   );
-
-/*
-const params = abi.constructors[0].args;
-const registry = api.registry;
-const values = computeValues(params, registry);
-const contract = code.createContract(0, { gasLimit: 0, value: 0 }, []);
-*/

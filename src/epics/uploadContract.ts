@@ -2,8 +2,8 @@ import { ActionsObservable } from "redux-observable";
 import { Action } from "../reducers/actions";
 import { map, mergeMap } from "rxjs/operators";
 import { UploadChangeParam } from "antd/lib/upload";
-import { ApiRx, Keyring } from "@polkadot/api";
-import { CodeRx, Abi, BlueprintRx } from "@polkadot/api-contract";
+import { ApiRx } from "@polkadot/api";
+import { Abi } from "@polkadot/api-contract";
 import { from } from "rxjs";
 
 export const uploadContract = (

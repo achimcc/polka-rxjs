@@ -1,7 +1,6 @@
 import { ActionsObservable } from "redux-observable";
 import { Action } from "../reducers/actions";
-import { map, switchMap, mapTo, filter, mergeMap } from "rxjs/operators";
-import { from, of } from "rxjs";
+import { map, filter, mergeMap } from "rxjs/operators";
 import { ApiRx, WsProvider } from "@polkadot/api";
 
 export const connect = (action$: ActionsObservable<Action>) =>
@@ -15,15 +14,3 @@ export const connect = (action$: ActionsObservable<Action>) =>
       return { type: "Connected", payload: api };
     })
   );
-
-/*
-mergeMap(async api => {
-			console.log('connect? ', api);
-			await api.connect();
-			return api;
-		}),
-		mergeMap(async api => {
-			await api.isReady;
-			return api;
-		}),
-*/
