@@ -26,7 +26,7 @@ const Progress = ({ progress }: Props) => {
               </div>
             </div>
             <div className="text-xs text-center md:text-base">
-              Select Server
+              Select Endpoint
             </div>
           </div>
           <div className="w-1/4">
@@ -63,7 +63,9 @@ const Progress = ({ progress }: Props) => {
                 </span>
               </div>
             </div>
-            <div className="text-xs text-center md:text-base">Add User</div>
+            <div className="text-xs text-center md:text-base">
+              Upload Contract
+            </div>
           </div>
           <div className="w-1/4">
             <div className="relative mb-2">
@@ -117,7 +119,9 @@ const Progress = ({ progress }: Props) => {
                 </span>
               </div>
             </div>
-            <div className="text-xs text-center md:text-base">Setting</div>
+            <div className="text-xs text-center md:text-base">
+              Contract Settings
+            </div>
           </div>
           <div className="w-1/4">
             <div className="relative mb-2">
@@ -161,7 +165,7 @@ const Progress = ({ progress }: Props) => {
                 </span>
               </div>
             </div>
-            <div className="text-xs text-center md:text-base">Finished</div>
+            <div className="text-xs text-center md:text-base">Deploy</div>
           </div>
         </div>
       </div>
