@@ -1,6 +1,5 @@
 import { ApiRx } from "@polkadot/api";
 import { ISubmittableResult } from "@polkadot/types/types";
-import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
 import { UploadChangeParam } from "antd/lib/upload";
 import { Action as DefaultAction } from "redux";
 
