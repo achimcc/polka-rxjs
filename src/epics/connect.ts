@@ -11,7 +11,7 @@ const connect = (action$: ActionsObservable<Action>) =>
     }),
     filter((api) => api.isConnected),
     map((api) => {
-      return { type: "Deploy" };
+      return { type: "Connected", payload: api };
     })
   );
 
