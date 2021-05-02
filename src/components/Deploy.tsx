@@ -3,7 +3,7 @@ import { useSelector } from "../store/store";
 import UploadFile from "./UploadFile";
 import InputValue from "./InputValue";
 import Instantiate from "./Instantiate";
-import Progress from "./Progress";
+import Progress from "./progress/Progress";
 
 const Deploy = () => {
   const dispatch = useDispatch();

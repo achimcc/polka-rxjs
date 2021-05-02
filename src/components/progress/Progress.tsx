@@ -1,6 +1,9 @@
+import Bar from "./Bar";
+
 interface Props {
   progress: number;
 }
+
 const Progress = ({ progress }: Props) => {
   return (
     <>
@@ -39,12 +42,7 @@ const Progress = ({ progress }: Props) => {
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                  <div
-                    className="w-0 bg-green-300 py-1 rounded"
-                    style={{ width: `${progress > 25 ? 100 : progress * 4}%` }}
-                  />
-                </div>
+                <Bar progress={progress > 25 ? 100 : progress * 4} />
               </div>
               <div className="w-10 h-10 mx-auto bg-green-500 rounded-full text-lg text-white flex items-center">
                 <span className="text-center text-white w-full">
@@ -78,17 +76,14 @@ const Progress = ({ progress }: Props) => {
                 }}
               >
                 <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                  <div
-                    className="w-0 bg-green-300 py-1 rounded"
-                    style={{
-                      width: `${
-                        progress > 50
-                          ? 100
-                          : progress < 25
-                          ? 0
-                          : (progress % 25) * 4
-                      }%`,
-                    }}
+                  <Bar
+                    progress={
+                      progress > 50
+                        ? 100
+                        : progress < 25
+                        ? 0
+                        : (progress % 25) * 4
+                    }
                   />
                 </div>
               </div>
@@ -133,20 +128,15 @@ const Progress = ({ progress }: Props) => {
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                  <div
-                    className="w-0 bg-green-300 py-1 rounded"
-                    style={{
-                      width: `${
-                        progress > 75
-                          ? 100
-                          : progress < 50
-                          ? 0
-                          : (progress % 25) * 4
-                      }%`,
-                    }}
-                  />
-                </div>
+                <Bar
+                  progress={
+                    progress > 75
+                      ? 100
+                      : progress < 50
+                      ? 0
+                      : (progress % 25) * 4
+                  }
+                />
               </div>
               <div className="w-10 h-10 mx-auto bg-white border-2 border-gray-200 rounded-full text-lg text-white flex items-center">
                 <span className="text-center text-gray-600 w-full">
