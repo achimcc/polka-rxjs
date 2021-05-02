@@ -1,6 +1,5 @@
 import { ApiRx } from "@polkadot/api";
 import { ISubmittableResult } from "@polkadot/types/types";
-import { UploadChangeParam } from "antd/lib/upload";
 import { Action as DefaultAction } from "redux";
 
 import { useDispatch as _useDispatch } from "react-redux";
@@ -33,7 +32,7 @@ export interface Endowment extends BaseAction {
 
 export interface UploadContract extends BaseAction {
   type: "UploadContract";
-  payload: UploadChangeParam;
+  payload: File;
 }
 
 export interface UploadContractSuccess extends BaseAction {

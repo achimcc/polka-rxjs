@@ -1,8 +1,7 @@
 import { useDispatch } from "../reducers/actions";
 import { Button } from "antd";
 import { useSelector } from "../store/store";
-import { RootState } from "../store/store";
-import UploadAbi from "./UploadContract";
+import UploadFile from "./UploadFile";
 import InputValue from "./InputValue";
 
 const Deploy = () => {
@@ -10,9 +9,10 @@ const Deploy = () => {
   const onDeploy = () => dispatch({ type: "Deploy" });
   const { isAbiUploaded, isApiConnected } = useSelector((store) => store.ui);
   const isReadyToDeploy = isApiConnected && isAbiUploaded;
+
   return (
     <>
-      <UploadAbi />
+      <UploadFile />
       <InputValue type={"Gas"} />
       <InputValue type={"Endowment"} />
       <Button disabled={!isReadyToDeploy} onClick={onDeploy}>

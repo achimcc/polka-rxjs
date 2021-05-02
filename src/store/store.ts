@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from "redux";
-import { createSelectorHook, useDispatch as _useDispatch } from "react-redux";
+import { createSelectorHook } from "react-redux";
 import { rootEpic, rootReducer } from "./root";
 import { createEpicMiddleware } from "redux-observable";
 import { ContractState } from "../reducers/contract";

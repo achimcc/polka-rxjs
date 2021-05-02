@@ -6,7 +6,7 @@ import { UploadOutlined } from "@ant-design/icons";
 const UploadAbi = () => {
   const dispatch = useDispatch();
   const onUpload = (file: UploadChangeParam): void => {
-    dispatch({ type: "UploadContract", payload: file });
+    //   dispatch({ type: "UploadContract", payload: file });
   };
 
   return (

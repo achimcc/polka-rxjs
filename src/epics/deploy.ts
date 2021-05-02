@@ -1,6 +1,6 @@
 import { ActionsObservable } from "redux-observable";
 import { Action } from "../reducers/actions";
-import { map, mergeMap, filter } from "rxjs/operators";
+import { map, mergeMap } from "rxjs/operators";
 import { ApiRx, Keyring } from "@polkadot/api";
 import { CodeRx, Abi } from "@polkadot/api-contract";
 import convertValues from "../utils/convertValues";
