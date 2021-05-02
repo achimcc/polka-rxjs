@@ -63,7 +63,7 @@ export interface UploadWasmSuccess extends BaseAction {
   payload: Uint8Array;
 }
 
-export type ContractAction =
+export type Action =
   | Gas
   | Endowment
   | UploadContract
@@ -74,9 +74,9 @@ export type ContractAction =
   | Connected
   | UploadWasmSuccess;
 
-type DispatchType = (args: ContractAction) => ContractAction;
+type DispatchType = (args: Action) => Action;
 
 export function useDispatch(): DispatchType {
   const dispatch = _useDispatch();
-  return (action: ContractAction) => dispatch(action);
+  return (action: Action) => dispatch(action);
 }

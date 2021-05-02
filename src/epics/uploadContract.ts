@@ -1,15 +1,12 @@
 import { ActionsObservable } from "redux-observable";
-import { ContractAction } from "../reducers/actions";
+import { Action } from "../reducers/actions";
 import { map, mergeMap, filter } from "rxjs/operators";
 import { UploadChangeParam } from "antd/lib/upload";
 import { ApiRx } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
 import { from } from "rxjs";
 
-const uploadContract = (
-  action$: ActionsObservable<ContractAction>,
-  store: any
-) =>
+const uploadContract = (action$: ActionsObservable<Action>, store: any) =>
   action$.ofType("UploadContract").pipe(
     mergeMap((action) => {
       action.payload;

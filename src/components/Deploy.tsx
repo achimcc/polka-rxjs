@@ -1,6 +1,6 @@
 import { useDispatch } from "../reducers/actions";
 import { Button } from "antd";
-import { useSelector } from "react-redux";
+import { useSelector } from "../store/store";
 import { RootState } from "../store/store";
 import UploadAbi from "./UploadContract";
 import InputValue from "./InputValue";
@@ -8,9 +8,7 @@ import InputValue from "./InputValue";
 const Deploy = () => {
   const dispatch = useDispatch();
   const onDeploy = () => dispatch({ type: "Deploy" });
-  const { isAbiUploaded, isApiConnected } = useSelector(
-    (store: RootState) => store.ui
-  );
+  const { isAbiUploaded, isApiConnected } = useSelector((store) => store.ui);
   const isReadyToDeploy = isApiConnected && isAbiUploaded;
   return (
     <>

@@ -1,5 +1,5 @@
 import { ApiRx } from "@polkadot/api";
-import { ContractAction } from "./actions";
+import { Action } from "./actions";
 
 export interface ContractState {
   api: ApiRx | undefined;
@@ -19,7 +19,7 @@ const initialState: ContractState = {
 
 const contractReducer = (
   state: ContractState = initialState,
-  action: ContractAction
+  action: Action
 ): ContractState => {
   console.log("action: ", action);
   switch (action.type) {

@@ -1,11 +1,11 @@
 import { ActionsObservable } from "redux-observable";
-import { ContractAction } from "../reducers/actions";
+import { Action } from "../reducers/actions";
 import { map, mergeMap, filter } from "rxjs/operators";
 import { ApiRx, Keyring } from "@polkadot/api";
 import { CodeRx, Abi } from "@polkadot/api-contract";
 import convertValues from "../utils/convertValues";
 
-const deploy = (action$: ActionsObservable<ContractAction>, store: any) =>
+const deploy = (action$: ActionsObservable<Action>, store: any) =>
   action$.ofType("Deploy").pipe(
     map((action) => {
       const api = (store as any).value.contract.api as ApiRx;

@@ -1,6 +1,5 @@
 import { useDispatch } from "../reducers/actions";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { useSelector } from "../store/store";
 
 interface props {
   type: "Gas" | "Endowment";
@@ -8,7 +7,7 @@ interface props {
 
 const InputValue = ({ type }: props) => {
   const dispatch = useDispatch();
-  const { [type]: current } = useSelector((store: RootState) => store.contract);
+  const { [type]: current } = useSelector((store) => store.contract);
   const onChange = ({ e: { target: value } }: any) =>
     dispatch({ type, payload: value });
 
