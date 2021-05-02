@@ -2,6 +2,8 @@ import { useDispatch } from "../reducers/actions";
 import { useSelector } from "../store/store";
 import UploadFile from "./UploadFile";
 import InputValue from "./InputValue";
+import Instantiate from "./Instantiate";
+import Progress from "./Progress";
 
 const Deploy = () => {
   const dispatch = useDispatch();
@@ -11,6 +13,8 @@ const Deploy = () => {
 
   return (
     <>
+      <Progress progress={60} />
+      <Instantiate />
       <UploadFile />
       <InputValue type={"Gas"} />
       <InputValue type={"Endowment"} />

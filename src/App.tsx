@@ -1,6 +1,5 @@
 import { Provider } from "react-redux";
 import store from "./store/store";
-import Instantiate from "./components/Instantiate";
 import Deploy from "./components/Deploy";
 import StyledForm from "./styles";
 
@@ -10,7 +9,6 @@ function App() {
       <Provider store={store}>
         <div className="App">
           <header className="App-header"></header>
-          <Instantiate />
           <Deploy />
         </div>
       </Provider>
