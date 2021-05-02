@@ -1,14 +1,12 @@
 import { ActionsObservable } from "redux-observable";
-import { Action } from "../reducers/actions";
+import { ContractAction } from "../reducers/actions";
 import { map, mergeMap, filter } from "rxjs/operators";
 import { ApiRx, Keyring } from "@polkadot/api";
 import { CodeRx, Abi } from "@polkadot/api-contract";
 import convertValues from "../utils/convertValues";
-import { actions } from "../reducers/contractSlice";
 
-export const deployEpic = (action$: ActionsObservable<Action>, store: any) =>
-  action$.pipe(
-    filter(actions.deploy.match),
+const deploy = (action$: ActionsObservable<ContractAction>, store: any) =>
+  action$.ofType("Deploy").pipe(
     map((action) => {
       const api = (store as any).value.contract.api as ApiRx;
       const abi = (store as any).value.contract.abi as Abi;
@@ -34,6 +32,8 @@ export const deployEpic = (action$: ActionsObservable<Action>, store: any) =>
     }),
     map((response) => {
       console.log("DeployMessage: ", JSON.stringify(response));
-      return actions.deployMessage(response);
+      return { type: "DeployMessage", payload: response };
     })
   );
+
+export default deploy;

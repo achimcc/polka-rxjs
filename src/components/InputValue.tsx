@@ -1,7 +1,6 @@
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../reducers/actions";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { actions } from "../reducers/contractSlice";
 
 interface props {
   type: "Gas" | "Endowment";
@@ -10,11 +9,9 @@ interface props {
 const InputValue = ({ type }: props) => {
   const dispatch = useDispatch();
   const { [type]: current } = useSelector((store: RootState) => store.contract);
-  const onChange = ({ e: { target: value } }: any) => {
-    const action =
-      type === "Gas" ? actions.setGas(value) : actions.setEndowment(value);
-    dispatch(action);
-  };
+  const onChange = ({ e: { target: value } }: any) =>
+    dispatch({ type, payload: value });
+
   return (
     <>
       <input onChange={onChange} value={current} placeholder={type} />

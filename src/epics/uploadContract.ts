@@ -1,20 +1,19 @@
 import { ActionsObservable } from "redux-observable";
-import { Action } from "../reducers/actions";
-import { map, mergeMap } from "rxjs/operators";
+import { ContractAction } from "../reducers/actions";
+import { map, mergeMap, filter } from "rxjs/operators";
 import { UploadChangeParam } from "antd/lib/upload";
 import { ApiRx } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
 import { from } from "rxjs";
 
-export const uploadContract = (
-  action$: ActionsObservable<Action>,
+const uploadContract = (
+  action$: ActionsObservable<ContractAction>,
   store: any
 ) =>
   action$.ofType("UploadContract").pipe(
     mergeMap((action) => {
-      console.log("step1");
-      const promise = ((action as any)
-        .payload as UploadChangeParam).file.originFileObj.text();
+      action.payload;
+      const promise = (action.payload as UploadChangeParam).file.originFileObj.text();
       return from(promise);
     }),
     map((arrayBuffer) => JSON.parse(JSON.stringify(arrayBuffer))),
@@ -25,3 +24,5 @@ export const uploadContract = (
       return { type: "UploadContractSuccess", payload: abi };
     })
   );
+
+export default uploadContract;

@@ -1,13 +1,12 @@
 import { UploadChangeParam } from "antd/lib/upload";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../reducers/actions";
 import { Upload, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { actions } from "../reducers/contractSlice";
 
 const UploadAbi = () => {
   const dispatch = useDispatch();
   const onUpload = (file: UploadChangeParam): void => {
-    dispatch(actions.uploadContract(file));
+    dispatch({ type: "UploadContract", payload: file });
   };
 
   return (
