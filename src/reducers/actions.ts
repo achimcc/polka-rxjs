@@ -23,12 +23,12 @@ export interface BaseAction extends DefaultAction<ActionType> {
 
 export interface Gas extends BaseAction {
   type: "Gas";
-  payload: number;
+  payload: string;
 }
 
 export interface Endowment extends BaseAction {
   type: "Endowment";
-  payload: number;
+  payload: string;
 }
 
 export interface UploadContract extends BaseAction {

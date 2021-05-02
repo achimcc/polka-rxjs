@@ -6,16 +6,16 @@ export interface ContractState {
   api: ApiRx | undefined;
   wasm: Uint8Array | undefined;
   abi: Abi | undefined;
-  Gas: number | undefined;
-  Endowment: number | undefined;
+  Gas: string | undefined;
+  Endowment: string | undefined;
 }
 
 const initialState: ContractState = {
   api: undefined,
   wasm: undefined,
   abi: undefined,
-  Gas: undefined,
-  Endowment: undefined,
+  Gas: "155852802980",
+  Endowment: "1300889614901161",
 };
 
 const contractReducer = (

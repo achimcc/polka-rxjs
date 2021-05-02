@@ -11,7 +11,7 @@ const deploy = (
   store: any
 ): Observable<Action> =>
   action$.ofType("Deploy").pipe(
-    map((action) => {
+    map(() => {
       const api = (store as any).value.contract.api as ApiRx;
       const abi = (store as any).value.contract.abi as Abi;
       const wasm = abi.project.source.wasm;
