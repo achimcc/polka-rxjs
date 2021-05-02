@@ -1,4 +1,5 @@
 import { ApiRx } from "@polkadot/api";
+import { Abi } from "@polkadot/api-contract";
 import { ISubmittableResult } from "@polkadot/types/types";
 import { Action as DefaultAction } from "redux";
 
@@ -37,7 +38,7 @@ export interface UploadContract extends BaseAction {
 
 export interface UploadContractSuccess extends BaseAction {
   type: "UploadContractSuccess";
-  payload: JSON;
+  payload: Abi;
 }
 
 export interface Deploy extends BaseAction {

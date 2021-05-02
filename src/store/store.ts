@@ -4,9 +4,7 @@ import rootReducer from "../reducers/rootReducer";
 import { RootState } from "../reducers/rootReducer";
 import rootEpic from "../epics/rootEpic";
 import { createEpicMiddleware } from "redux-observable";
-import { ContractState } from "../reducers/contract";
 import { Action } from "../reducers/actions";
-import { UiState } from "../reducers/ui";
 
 const epicMiddleware = createEpicMiddleware<Action, Action>();
 

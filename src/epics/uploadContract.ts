@@ -3,9 +3,12 @@ import { Action } from "../reducers/actions";
 import { map, mergeMap } from "rxjs/operators";
 import { ApiRx } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
-import { from } from "rxjs";
+import { Observable, from } from "rxjs";
 
-const uploadContract = (action$: ActionsObservable<Action>, store: any) =>
+const uploadContract = (
+  action$: ActionsObservable<Action>,
+  store: any
+): Observable<Action> =>
   action$.ofType("UploadContract").pipe(
     mergeMap((action) => {
       const promise = (action.payload as File).text();

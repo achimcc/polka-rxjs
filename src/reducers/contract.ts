@@ -1,10 +1,11 @@
 import { ApiRx } from "@polkadot/api";
+import { Abi } from "@polkadot/api-contract";
 import { Action } from "./actions";
 
 export interface ContractState {
   api: ApiRx | undefined;
   wasm: Uint8Array | undefined;
-  abi: JSON | undefined;
+  abi: Abi | undefined;
   Gas: number | undefined;
   Endowment: number | undefined;
 }
