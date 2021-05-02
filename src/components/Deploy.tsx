@@ -1,5 +1,4 @@
 import { useDispatch } from "../reducers/actions";
-import { Button } from "antd";
 import { useSelector } from "../store/store";
 import UploadFile from "./UploadFile";
 import InputValue from "./InputValue";
@@ -15,9 +14,9 @@ const Deploy = () => {
       <UploadFile />
       <InputValue type={"Gas"} />
       <InputValue type={"Endowment"} />
-      <Button disabled={!isReadyToDeploy} onClick={onDeploy}>
+      <button disabled={!isReadyToDeploy} onClick={onDeploy}>
         Deploy
-      </Button>
+      </button>
     </>
   );
 };
