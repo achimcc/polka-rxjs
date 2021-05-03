@@ -1,4 +1,3 @@
-import Bar from "./Bar";
 import Step from "./Step";
 
 interface Props {
