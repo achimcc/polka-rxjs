@@ -4,7 +4,7 @@ import Connect from "./Connect";
 import Progress from "./progress/Progress";
 import Settings from "./Settings";
 
-const Deploy = () => {
+const Contract = () => {
   const { contractStatus } = useSelector((store) => store.ui);
   const progress =
     contractStatus === "Endpoint"
@@ -28,4 +28,4 @@ const Deploy = () => {
   );
 };
 
-export default Deploy;
+export default Contract;

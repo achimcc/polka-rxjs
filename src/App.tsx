@@ -1,6 +1,6 @@
 import { Provider } from "react-redux";
 import store from "./store/store";
-import Deploy from "./components/Deploy";
+import Deploy from "./components/Contract";
 import StyledForm from "./styles";
 
 function App() {

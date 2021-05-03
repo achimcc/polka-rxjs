@@ -13,11 +13,13 @@ const Settings = ({ isDeploying }: Props) => {
     <>
       <InputValue type={"Gas"} />
       <InputValue type={"Endowment"} />
-      {isDeploying ? (
-        <button onClick={onCancelDeploy}>Cancel</button>
-      ) : (
-        <button onClick={onDeploy}>Deploy</button>
-      )}
+      <div className="p-2 bg-white border-gray-200 text-right">
+        {isDeploying ? (
+          <button onClick={onCancelDeploy}>Cancel</button>
+        ) : (
+          <button onClick={onDeploy}>Deploy</button>
+        )}
+      </div>
     </>
   );
 };
