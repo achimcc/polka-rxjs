@@ -6,7 +6,7 @@ import rootEpic from "../epics/rootEpic";
 import { createEpicMiddleware } from "redux-observable";
 import { Action } from "../reducers/actions";
 
-const epicMiddleware = createEpicMiddleware<Action, Action>();
+const epicMiddleware = createEpicMiddleware<Action, Action, RootState>();
 
 const store = createStore<RootState, any, any, any>(
   rootReducer,
