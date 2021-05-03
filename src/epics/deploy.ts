@@ -1,10 +1,9 @@
-import { ActionsObservable, Epic } from "redux-observable";
+import { Epic } from "redux-observable";
 import { Action } from "../reducers/actions";
 import { map, mergeMap } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { ApiRx, Keyring } from "@polkadot/api";
 import { CodeRx, Abi } from "@polkadot/api-contract";
-import convertValues from "../utils/convertValues";
 import { RootState } from "../reducers/rootReducer";
 
 const deploy: Epic<Action, Action, RootState> = (
@@ -17,11 +16,6 @@ const deploy: Epic<Action, Action, RootState> = (
       const abi = store.value.contract.abi as Abi;
       const wasm = abi.project.source.wasm;
       const { Gas, Endowment } = store.value.ui;
-      const testgas = 155852802980;
-      const [, gasBN] = convertValues(Gas);
-      const [, endowmentBN] = convertValues(Endowment);
-      console.log("convert: ", gasBN, endowmentBN);
-      const testendow = 1300889614901161;
       const code = new CodeRx(api, abi, wasm);
       const blueprint = code.tx.new(
         { gasLimit: Gas, value: Endowment, salt: null },
@@ -32,7 +26,6 @@ const deploy: Epic<Action, Action, RootState> = (
     mergeMap((blueprint) => {
       const keyring = new Keyring({ type: "sr25519" });
       const alice = keyring.addFromUri("//Alice");
-      console.log("alice: ", alice);
       return blueprint.signAndSend(alice, { tip: 0 });
     }),
     map((response) => {

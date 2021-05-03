@@ -1,4 +1,4 @@
-import { ActionsObservable, Epic } from "redux-observable";
+import { Epic } from "redux-observable";
 import { Action } from "../reducers/actions";
 import { map, filter, mergeMap } from "rxjs/operators";
 import { Observable } from "rxjs";
