@@ -1,6 +1,6 @@
 import { Epic } from "redux-observable";
 import { Action } from "../reducers/actions";
-import { map, mergeMap } from "rxjs/operators";
+import { map, mergeMap, takeUntil } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { ApiRx, Keyring } from "@polkadot/api";
 import { CodeRx, Abi } from "@polkadot/api-contract";
@@ -28,6 +28,7 @@ const deploy: Epic<Action, Action, RootState> = (
       const alice = keyring.addFromUri("//Alice");
       return blueprint.signAndSend(alice, { tip: 0 });
     }),
+    takeUntil(action$.ofType("CancelDeploy")),
     map((response) => {
       console.log("DeployMessage: ", response);
       return { type: "DeployMessage", payload: response };

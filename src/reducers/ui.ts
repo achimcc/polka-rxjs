@@ -38,6 +38,9 @@ const contractReducer = (
     case "Deploy": {
       return { ...state, contractStatus: "Deploying" };
     }
+    case "CancelDeploy": {
+      return { ...state, contractStatus: "Endpoint" };
+    }
     case "DeployMessage": {
       const deployMessages = [...state.deployMessages, action.payload];
       return { ...state, deployMessages };
