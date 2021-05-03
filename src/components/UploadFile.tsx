@@ -1,6 +1,6 @@
 import { useDispatch } from "../reducers/actions";
 
-const Deploy = () => {
+const UploadFile = () => {
   const dispatch = useDispatch();
   const handleChange = ({
     currentTarget: { files },
@@ -16,4 +16,4 @@ const Deploy = () => {
   );
 };
 
-export default Deploy;
+export default UploadFile;

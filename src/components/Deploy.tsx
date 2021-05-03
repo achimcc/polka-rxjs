@@ -1,12 +1,14 @@
+import { useState } from "react";
 import { useDispatch } from "../reducers/actions";
 import { useSelector } from "../store/store";
 import UploadFile from "./UploadFile";
 import InputValue from "./InputValue";
-import Instantiate from "./Instantiate";
+import Connect from "./Connect";
 import Progress from "./progress/Progress";
 
 const Deploy = () => {
   const dispatch = useDispatch();
+  const [progress, setProgress] = useState(0);
   const onDeploy = () => dispatch({ type: "Deploy" });
   const { isAbiUploaded, isApiConnected } = useSelector((store) => store.ui);
   const isReadyToDeploy = isApiConnected && isAbiUploaded;
@@ -14,7 +16,7 @@ const Deploy = () => {
   return (
     <>
       <Progress progress={60} />
-      <Instantiate />
+      <Connect />
       <UploadFile />
       <InputValue type={"Gas"} />
       <InputValue type={"Endowment"} />

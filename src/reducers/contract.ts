@@ -6,16 +6,12 @@ export interface ContractState {
   api: ApiRx | undefined;
   wasm: Uint8Array | undefined;
   abi: Abi | undefined;
-  Gas: string | undefined;
-  Endowment: string | undefined;
 }
 
 const initialState: ContractState = {
   api: undefined,
   wasm: undefined,
   abi: undefined,
-  Gas: "155852802980",
-  Endowment: "1300889614901161",
 };
 
 const contractReducer = (
@@ -35,14 +31,6 @@ const contractReducer = (
     case "UploadContractSuccess": {
       console.log("success abi!");
       return { ...state, abi: action.payload };
-    }
-    case "Gas": {
-      console.log("SetGas!");
-      return { ...state, Gas: action.payload };
-    }
-    case "Endowment": {
-      console.log("SetEndowment!");
-      return { ...state, Endowment: action.payload };
     }
     default:
       return state;

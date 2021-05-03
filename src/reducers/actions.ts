@@ -14,7 +14,8 @@ type ActionType =
   | "DeployMessage"
   | "Gas"
   | "Endowment"
-  | "UploadWasmSuccess";
+  | "UploadWasmSuccess"
+  | "Address";
 
 export interface BaseAction extends DefaultAction<ActionType> {
   type: ActionType;
@@ -28,6 +29,11 @@ export interface Gas extends BaseAction {
 
 export interface Endowment extends BaseAction {
   type: "Endowment";
+  payload: string;
+}
+
+export interface Address extends BaseAction {
+  type: "Address";
   payload: string;
 }
 
@@ -72,7 +78,8 @@ export type Action =
   | DeployMessage
   | Connect
   | Connected
-  | UploadWasmSuccess;
+  | UploadWasmSuccess
+  | Address;
 
 type DispatchType = (args: Action) => Action;
 
