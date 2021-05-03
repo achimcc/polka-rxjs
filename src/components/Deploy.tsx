@@ -13,7 +13,7 @@ const Deploy = ({ messages, isDeploying }: Props) => {
   return (
     <>
       {messages.map((message) => (
-        <Message text={message} />
+        <Message key={message} text={message} />
       ))}
       <div className="p-2 bg-white border-gray-200 text-right">
         {isDeploying && <Cancel onClick={onCancelDeploy}>Cancel</Cancel>}

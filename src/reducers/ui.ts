@@ -4,8 +4,8 @@ import { Action } from "./actions";
 export interface UiState {
   deployMessages: Array<ISubmittableResult>;
   contractStatus: "Endpoint" | "Upload" | "Settings" | "Deployed" | "Deploying";
-  Gas: string | undefined;
-  Endowment: string | undefined;
+  Gas: string;
+  Endowment: string;
   Address: string | undefined;
 }
 

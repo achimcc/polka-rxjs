@@ -8,7 +8,7 @@ interface props {
 const InputValue = ({ type }: props) => {
   const dispatch = useDispatch();
   const { [type]: current } = useSelector((store) => store.ui);
-  const onChange = (e: any) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const payload = e.target.value;
     dispatch({ type, payload });
   };
