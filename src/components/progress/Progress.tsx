@@ -1,5 +1,5 @@
 import Bar from "./Bar";
-import Step from "./Icon";
+import Step from "./Step";
 
 interface Props {
   progress: number;
