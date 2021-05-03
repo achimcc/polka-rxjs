@@ -25,18 +25,18 @@ const Progress = ({ progress }: Props) => {
           <Step
             path={Contract}
             label="Upload Contract"
-            progress={progress > 25 ? 100 : progress * 4}
+            progress={progress >= 25 ? 100 : progress * 4}
           />
           <Step
             path={Settings}
             progress={
-              progress > 50 ? 100 : progress < 25 ? 0 : (progress % 25) * 4
+              progress >= 50 ? 100 : progress < 25 ? 0 : (progress % 25) * 4
             }
             label="Contract Settings"
           />
           <Step
             progress={
-              progress > 75 ? 100 : progress < 50 ? 0 : (progress % 25) * 4
+              progress >= 75 ? 100 : progress < 50 ? 0 : (progress % 25) * 4
             }
             path={Success}
             label="Deploy"

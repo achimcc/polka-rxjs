@@ -24,6 +24,7 @@ const InputValue = ({ type }: props) => {
           className="border border-2 rounded-r px-4 py-2 w-full"
           type="text"
           placeholder={type}
+          value={current}
           onChange={onChange}
         />
       </div>

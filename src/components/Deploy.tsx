@@ -8,16 +8,16 @@ const Deploy = () => {
   const { contractStatus } = useSelector((store) => store.ui);
   const progress =
     contractStatus === "Endpoint"
-      ? 25
+      ? 0
       : contractStatus === "Upload"
-      ? 50
+      ? 25
       : contractStatus === "Settings"
-      ? 75
-      : 100;
+      ? 50
+      : 75;
 
   return (
     <>
-      <Progress progress={10} />
+      <Progress progress={progress} />
       {contractStatus === "Endpoint" && <Connect />}
       {contractStatus === "Upload" && <UploadFile />}
       {contractStatus === "Settings" && <Settings isReadyToDeploy />}

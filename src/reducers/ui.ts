@@ -30,12 +30,13 @@ const contractReducer = (
 ): UiState => {
   switch (action.type) {
     case "Connected": {
-      console.log("Connected!");
-      return { ...state, isApiConnected: true };
+      return { ...state, isApiConnected: true, contractStatus: "Upload" };
     }
     case "UploadContractSuccess": {
-      console.log("success abi!");
-      return { ...state, isAbiUploaded: true };
+      return { ...state, isAbiUploaded: true, contractStatus: "Settings" };
+    }
+    case "UploadContractSuccess": {
+      return { ...state, contractStatus: "Deploy" };
     }
     case "Deploy": {
       return { ...state, deployStatus: "deploying" };

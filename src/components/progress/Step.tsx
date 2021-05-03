@@ -7,7 +7,7 @@ interface Props {
 }
 
 const Icon = ({ path, label, progress = false }: Props) => {
-  const isActive = !progress || progress === 100;
+  const isActive = progress === false || progress === 100;
   return (
     <>
       <div className="w-1/4">
