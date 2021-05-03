@@ -15,7 +15,8 @@ type ActionType =
   | "Gas"
   | "Endowment"
   | "UploadWasmSuccess"
-  | "Address";
+  | "Address"
+  | "CancelDeploy";
 
 export interface BaseAction extends DefaultAction<ActionType> {
   type: ActionType;
@@ -69,6 +70,10 @@ export interface UploadWasmSuccess extends BaseAction {
   payload: Uint8Array;
 }
 
+export interface CancelDeploy extends BaseAction {
+  type: "CancelDeploy";
+}
+
 export type Action =
   | Gas
   | Endowment
@@ -79,7 +84,8 @@ export type Action =
   | Connect
   | Connected
   | UploadWasmSuccess
-  | Address;
+  | Address
+  | CancelDeploy;
 
 type DispatchType = (args: Action) => Action;
 

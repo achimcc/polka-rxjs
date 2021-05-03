@@ -13,14 +13,17 @@ const Deploy = () => {
       ? 25
       : contractStatus === "Settings"
       ? 50
-      : 75;
-
+      : contractStatus === "Deploying"
+      ? 75
+      : 100;
   return (
     <>
       <Progress progress={progress} />
       {contractStatus === "Endpoint" && <Connect />}
       {contractStatus === "Upload" && <UploadFile />}
-      {contractStatus === "Settings" && <Settings isReadyToDeploy />}
+      {(contractStatus === "Settings" || contractStatus === "Deploying") && (
+        <Settings isDeploying={contractStatus === "Deploying"} />
+      )}
     </>
   );
 };

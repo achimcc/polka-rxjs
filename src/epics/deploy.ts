@@ -24,7 +24,7 @@ const deploy: Epic<Action, Action, RootState> = (
       const testendow = 1300889614901161;
       const code = new CodeRx(api, abi, wasm);
       const blueprint = code.tx.new(
-        { gasLimit: testgas, value: testendow, salt: null },
+        { gasLimit: Gas, value: Endowment, salt: null },
         []
       );
       return blueprint;
@@ -36,7 +36,7 @@ const deploy: Epic<Action, Action, RootState> = (
       return blueprint.signAndSend(alice, { tip: 0 });
     }),
     map((response) => {
-      console.log("DeployMessage: ", JSON.stringify(response));
+      console.log("DeployMessage: ", response);
       return { type: "DeployMessage", payload: response };
     })
   );

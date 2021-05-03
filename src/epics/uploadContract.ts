@@ -1,6 +1,6 @@
 import { Epic } from "redux-observable";
 import { Action } from "../reducers/actions";
-import { map, mergeMap } from "rxjs/operators";
+import { map, mergeMap, filter } from "rxjs/operators";
 import { ApiRx } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
 import { Observable, from } from "rxjs";

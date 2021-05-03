@@ -6,7 +6,7 @@ export interface UiState {
   isContractInstantiated: boolean;
   deployMessages: Array<any>;
   deployStatus: undefined | "deploying" | "deployed" | "error";
-  contractStatus: "Endpoint" | "Upload" | "Settings" | "Deploy";
+  contractStatus: "Endpoint" | "Upload" | "Settings" | "Deployed" | "Deploying";
   Gas: string | undefined;
   Endowment: string | undefined;
   Address: string | undefined;
@@ -35,11 +35,8 @@ const contractReducer = (
     case "UploadContractSuccess": {
       return { ...state, isAbiUploaded: true, contractStatus: "Settings" };
     }
-    case "UploadContractSuccess": {
-      return { ...state, contractStatus: "Deploy" };
-    }
     case "Deploy": {
-      return { ...state, deployStatus: "deploying" };
+      return { ...state, contractStatus: "Deploying" };
     }
     case "DeployMessage": {
       const deployMessages = [...state.deployMessages, action.payload];
