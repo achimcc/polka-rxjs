@@ -3,7 +3,7 @@ import UploadFile from "./UploadFile";
 import Connect from "./Connect";
 import Progress from "./progress/Progress";
 import Settings from "./Settings";
-import Deploying from "./Deploy";
+import Deploy from "./Deploy";
 
 const Contract = () => {
   const { contractStatus, deployMessages } = useSelector((store) => store.ui);
@@ -25,9 +25,9 @@ const Contract = () => {
       {contractStatus === "Upload" && <UploadFile />}
       {contractStatus === "Settings" && <Settings />}
       {contractStatus === "Deploying" && (
-        <Deploying messages={messages} isDeploying />
+        <Deploy messages={messages} isDeploying />
       )}
-      {contractStatus === "Deployed" && <Deploying messages={messages} />}
+      {contractStatus === "Deployed" && <Deploy messages={messages} />}
     </>
   );
 };

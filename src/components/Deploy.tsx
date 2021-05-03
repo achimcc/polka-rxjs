@@ -7,7 +7,7 @@ interface Props {
   isDeploying?: boolean;
 }
 
-const Deploying = ({ messages, isDeploying }: Props) => {
+const Deploy = ({ messages, isDeploying }: Props) => {
   const dispatch = useDispatch();
   const onCancelDeploy = () => dispatch({ type: "CancelDeploy" });
   return (
@@ -22,4 +22,4 @@ const Deploying = ({ messages, isDeploying }: Props) => {
   );
 };
 
-export default Deploying;
+export default Deploy;
