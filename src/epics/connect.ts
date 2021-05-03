@@ -6,11 +6,13 @@ import { ApiRx, WsProvider } from "@polkadot/api";
 import { RootState } from "../reducers/rootReducer";
 
 const connect: Epic<Action, Action, RootState> = (
-  action$
+  action$,
+  store
 ): Observable<Action> =>
   action$.ofType("Connect").pipe(
     switchMap(() => {
-      const provider = new WsProvider("ws://127.0.0.1:9944");
+      const url = store.value.ui.Address;
+      const provider = new WsProvider(url);
       return ApiRx.create({ provider, types: {} });
     }),
     filter((api) => api.isConnected),
