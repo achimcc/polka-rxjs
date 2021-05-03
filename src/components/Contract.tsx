@@ -23,7 +23,7 @@ const Contract = () => {
       <Progress progress={progress} />
       {contractStatus === "Endpoint" && <Connect />}
       {contractStatus === "Upload" && <UploadFile />}
-      {contractStatus === "Settings" && <Settings isDeploying />}
+      {contractStatus === "Settings" && <Settings />}
       {contractStatus === "Deploying" && (
         <Deploying messages={messages} isDeploying />
       )}

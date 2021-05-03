@@ -1,11 +1,7 @@
 import { useDispatch } from "../reducers/actions";
 import InputValue from "./InputValue";
 
-interface Props {
-  isDeploying: boolean;
-}
-
-const Settings = ({ isDeploying }: Props) => {
+const Settings = () => {
   const dispatch = useDispatch();
   const onDeploy = () => dispatch({ type: "Deploy" });
   return (
