@@ -1,10 +1,13 @@
-import { ActionsObservable } from "redux-observable";
+import { ActionsObservable, Epic } from "redux-observable";
 import { Action } from "../reducers/actions";
 import { map, filter, mergeMap } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { ApiRx, WsProvider } from "@polkadot/api";
+import { RootState } from "../reducers/rootReducer";
 
-const connect = (action$: ActionsObservable<Action>): Observable<Action> =>
+const connect: Epic<Action, Action, RootState> = (
+  action$
+): Observable<Action> =>
   action$.ofType("Connect").pipe(
     mergeMap(() => {
       const provider = new WsProvider("ws://127.0.0.1:9944");

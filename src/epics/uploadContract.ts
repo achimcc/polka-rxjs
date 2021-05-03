@@ -1,13 +1,14 @@
-import { ActionsObservable } from "redux-observable";
+import { Epic } from "redux-observable";
 import { Action } from "../reducers/actions";
 import { map, mergeMap } from "rxjs/operators";
 import { ApiRx } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
 import { Observable, from } from "rxjs";
+import { RootState } from "../reducers/rootReducer";
 
-const uploadContract = (
-  action$: ActionsObservable<Action>,
-  store: any
+const uploadContract: Epic<Action, Action, RootState> = (
+  action$,
+  store
 ): Observable<Action> =>
   action$.ofType("UploadContract").pipe(
     mergeMap((action) => {

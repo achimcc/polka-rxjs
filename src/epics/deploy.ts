@@ -1,21 +1,22 @@
-import { ActionsObservable } from "redux-observable";
+import { ActionsObservable, Epic } from "redux-observable";
 import { Action } from "../reducers/actions";
 import { map, mergeMap } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { ApiRx, Keyring } from "@polkadot/api";
 import { CodeRx, Abi } from "@polkadot/api-contract";
 import convertValues from "../utils/convertValues";
+import { RootState } from "../reducers/rootReducer";
 
-const deploy = (
-  action$: ActionsObservable<Action>,
-  store: any
+const deploy: Epic<Action, Action, RootState> = (
+  action$,
+  store
 ): Observable<Action> =>
   action$.ofType("Deploy").pipe(
     map(() => {
-      const api = (store as any).value.contract.api as ApiRx;
-      const abi = (store as any).value.contract.abi as Abi;
+      const api = store.value.contract.api as ApiRx;
+      const abi = store.value.contract.abi as Abi;
       const wasm = abi.project.source.wasm;
-      const { Gas, Endowment } = store.value.contract;
+      const { Gas, Endowment } = store.value.ui;
       const testgas = 155852802980;
       const [, gasBN] = convertValues(Gas);
       const [, endowmentBN] = convertValues(Endowment);
