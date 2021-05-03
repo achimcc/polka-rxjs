@@ -7,7 +7,7 @@ const Instantiate = () => {
   return (
     <>
       <InputValue type="Address" />
-      <button onClick={onInstantiate}>Instantiate</button>
+      <button onClick={onInstantiate}>Connect</button>
     </>
   );
 };

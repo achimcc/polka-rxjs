@@ -3,7 +3,9 @@ import { Action } from "./actions";
 export interface UiState {
   isApiConnected: boolean;
   isAbiUploaded: boolean;
+  isContractInstantiated: boolean;
   deployMessages: Array<any>;
+  deployStatus: undefined | "deploying" | "deployed" | "error";
   Gas: string | undefined;
   Endowment: string | undefined;
   Address: string | undefined;
@@ -12,6 +14,8 @@ export interface UiState {
 const initialState: UiState = {
   isApiConnected: false,
   isAbiUploaded: false,
+  isContractInstantiated: false,
+  deployStatus: undefined,
   deployMessages: [],
   Gas: "155852802980",
   Endowment: "1300889614901161",
@@ -30,6 +34,9 @@ const contractReducer = (
     case "UploadContractSuccess": {
       console.log("success abi!");
       return { ...state, isAbiUploaded: true };
+    }
+    case "Deploy": {
+      return { ...state, deployStatus: "deploying" };
     }
     case "DeployMessage": {
       const deployMessages = [...state.deployMessages, action.payload];

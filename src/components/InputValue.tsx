@@ -15,7 +15,18 @@ const InputValue = ({ type }: props) => {
 
   return (
     <>
-      <input onChange={onChange} value={current} placeholder={type} />
+      <div className="flex">
+        <span className="text-sm border border-2 rounded-l px-4 py-2 bg-gray-300 whitespace-no-wrap">
+          {type}
+        </span>
+        <input
+          name={`field_${type}`}
+          className="border border-2 rounded-r px-4 py-2 w-full"
+          type="text"
+          placeholder={type}
+          onChange={onChange}
+        />
+      </div>
     </>
   );
 };
