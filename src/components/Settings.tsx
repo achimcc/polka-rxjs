@@ -8,17 +8,17 @@ interface Props {
 const Settings = ({ isDeploying }: Props) => {
   const dispatch = useDispatch();
   const onDeploy = () => dispatch({ type: "Deploy" });
-  const onCancelDeploy = () => dispatch({ type: "CancelDeploy" });
   return (
     <>
       <InputValue type={"Gas"} />
       <InputValue type={"Endowment"} />
       <div className="p-2 bg-white border-gray-200 text-right">
-        {isDeploying ? (
-          <button onClick={onCancelDeploy}>Cancel</button>
-        ) : (
-          <button onClick={onDeploy}>Deploy</button>
-        )}
+        <button
+          className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+          onClick={onDeploy}
+        >
+          Deploy
+        </button>
       </div>
     </>
   );

@@ -11,9 +11,6 @@ const StyledForm = styled.main.attrs({
     input {
       ${tw`border-gray-300 w-full border-solid border rounded py-2 px-4`}
     }
-    button {
-      ${tw`bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-blue-700 rounded`}
-    }
   }
 `;
 export default StyledForm;

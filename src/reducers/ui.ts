@@ -1,10 +1,11 @@
+import { ISubmittableResult } from "@polkadot/types/types";
 import { Action } from "./actions";
 
 export interface UiState {
   isApiConnected: boolean;
   isAbiUploaded: boolean;
   isContractInstantiated: boolean;
-  deployMessages: Array<any>;
+  deployMessages: Array<ISubmittableResult>;
   deployStatus: undefined | "deploying" | "deployed" | "error";
   contractStatus: "Endpoint" | "Upload" | "Settings" | "Deployed" | "Deploying";
   Gas: string | undefined;
@@ -43,7 +44,9 @@ const contractReducer = (
     }
     case "DeployMessage": {
       const deployMessages = [...state.deployMessages, action.payload];
-      return { ...state, deployMessages };
+      const isDeployed = action.payload.status.isFinalized;
+      const contractStatus = isDeployed ? "Deployed" : "Deploying";
+      return { ...state, deployMessages, contractStatus };
     }
     case "Gas": {
       console.log("SetGas!");

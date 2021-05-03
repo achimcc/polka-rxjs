@@ -3,9 +3,11 @@ import UploadFile from "./UploadFile";
 import Connect from "./Connect";
 import Progress from "./progress/Progress";
 import Settings from "./Settings";
+import Deploying from "./Deploy";
 
 const Contract = () => {
-  const { contractStatus } = useSelector((store) => store.ui);
+  const { contractStatus, deployMessages } = useSelector((store) => store.ui);
+  const messages = deployMessages.map((message) => message.status.type);
   const progress =
     contractStatus === "Endpoint"
       ? 0
@@ -14,16 +16,18 @@ const Contract = () => {
       : contractStatus === "Settings"
       ? 50
       : contractStatus === "Deploying"
-      ? 75
+      ? 60
       : 100;
   return (
     <>
       <Progress progress={progress} />
       {contractStatus === "Endpoint" && <Connect />}
       {contractStatus === "Upload" && <UploadFile />}
-      {(contractStatus === "Settings" || contractStatus === "Deploying") && (
-        <Settings isDeploying={contractStatus === "Deploying"} />
+      {contractStatus === "Settings" && <Settings isDeploying />}
+      {contractStatus === "Deploying" && (
+        <Deploying messages={messages} isDeploying />
       )}
+      {contractStatus === "Deployed" && <Deploying messages={messages} />}
     </>
   );
 };

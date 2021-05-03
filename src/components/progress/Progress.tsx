@@ -38,7 +38,7 @@ const Progress = ({ progress }: Props) => {
               progress >= 75 ? 100 : progress < 50 ? 0 : (progress % 25) * 4
             }
             path={Success}
-            label="Deploy"
+            label="Deployed"
           />
         </div>
       </div>
