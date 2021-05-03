@@ -6,6 +6,7 @@ export interface UiState {
   isContractInstantiated: boolean;
   deployMessages: Array<any>;
   deployStatus: undefined | "deploying" | "deployed" | "error";
+  contractStatus: "Endpoint" | "Upload" | "Settings" | "Deploy";
   Gas: string | undefined;
   Endowment: string | undefined;
   Address: string | undefined;
@@ -16,6 +17,7 @@ const initialState: UiState = {
   isAbiUploaded: false,
   isContractInstantiated: false,
   deployStatus: undefined,
+  contractStatus: "Endpoint",
   deployMessages: [],
   Gas: "155852802980",
   Endowment: "1300889614901161",

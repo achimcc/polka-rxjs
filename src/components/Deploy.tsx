@@ -1,28 +1,26 @@
-import { useState } from "react";
-import { useDispatch } from "../reducers/actions";
 import { useSelector } from "../store/store";
 import UploadFile from "./UploadFile";
-import InputValue from "./InputValue";
 import Connect from "./Connect";
 import Progress from "./progress/Progress";
+import Settings from "./Settings";
 
 const Deploy = () => {
-  const dispatch = useDispatch();
-  const [progress, setProgress] = useState(0);
-  const onDeploy = () => dispatch({ type: "Deploy" });
-  const { isAbiUploaded, isApiConnected } = useSelector((store) => store.ui);
-  const isReadyToDeploy = isApiConnected && isAbiUploaded;
+  const { contractStatus } = useSelector((store) => store.ui);
+  const progress =
+    contractStatus === "Endpoint"
+      ? 25
+      : contractStatus === "Upload"
+      ? 50
+      : contractStatus === "Settings"
+      ? 75
+      : 100;
 
   return (
     <>
-      <Progress progress={60} />
-      <Connect />
-      <UploadFile />
-      <InputValue type={"Gas"} />
-      <InputValue type={"Endowment"} />
-      <button disabled={!isReadyToDeploy} onClick={onDeploy}>
-        Deploy
-      </button>
+      <Progress progress={10} />
+      {contractStatus === "Endpoint" && <Connect />}
+      {contractStatus === "Upload" && <UploadFile />}
+      {contractStatus === "Settings" && <Settings isReadyToDeploy />}
     </>
   );
 };
