@@ -45,7 +45,7 @@ export interface UploadContract extends BaseAction {
 
 export interface UploadContractSuccess extends BaseAction {
   type: "UploadContractSuccess";
-  payload: Abi;
+  payload: { abi: Abi; wasm: Uint8Array; name: string };
 }
 
 export interface Deploy extends BaseAction {

@@ -7,14 +7,16 @@ export interface UiState {
   Gas: string;
   Endowment: string;
   Address: string | undefined;
+  contractName: string;
 }
 
 const initialState: UiState = {
   contractStatus: "Endpoint",
   deployMessages: [],
-  Gas: "155852802980",
-  Endowment: "1300889614901161",
+  Gas: "200000000000",
+  Endowment: "1000000000000000",
   Address: "ws://127.0.0.1:9944",
+  contractName: "",
 };
 
 const contractReducer = (
@@ -26,7 +28,8 @@ const contractReducer = (
       return { ...state, contractStatus: "Upload" };
     }
     case "UploadContractSuccess": {
-      return { ...state, contractStatus: "Settings" };
+      const { name: contractName } = action.payload;
+      return { ...state, contractStatus: "Settings", contractName };
     }
     case "Deploy": {
       return { ...state, contractStatus: "Deploying" };

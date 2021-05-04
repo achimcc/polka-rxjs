@@ -1,11 +1,16 @@
 import { useDispatch } from "../reducers/actions";
 import InputValue from "./InputValue";
 
-const Settings = () => {
+interface Props {
+  name: string;
+}
+
+const Settings = ({ name }: Props) => {
   const dispatch = useDispatch();
   const onDeploy = () => dispatch({ type: "Deploy" });
   return (
     <>
+      <h2>{name}</h2>
       <InputValue type={"Gas"} />
       <InputValue type={"Endowment"} />
       <div className="p-2 bg-white border-gray-200 text-right">

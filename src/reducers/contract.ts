@@ -4,8 +4,8 @@ import { Action } from "./actions";
 
 export interface ContractState {
   api: ApiRx | undefined;
-  wasm: Uint8Array | undefined;
   abi: Abi | undefined;
+  wasm: undefined | Uint8Array;
 }
 
 const initialState: ContractState = {
@@ -30,7 +30,8 @@ const contractReducer = (
     }
     case "UploadContractSuccess": {
       console.log("success abi!");
-      return { ...state, abi: action.payload };
+      const { abi, wasm } = action.payload;
+      return { ...state, abi, wasm };
     }
     default:
       return state;

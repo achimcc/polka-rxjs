@@ -6,7 +6,9 @@ import Settings from "./Settings";
 import Deploy from "./Deploy";
 
 const Contract = () => {
-  const { contractStatus, deployMessages } = useSelector((store) => store.ui);
+  const { contractStatus, deployMessages, contractName } = useSelector(
+    (store) => store.ui
+  );
   const messages = deployMessages.map((message) => message.status.type);
   const progress = {
     Endpoint: 0,
@@ -20,7 +22,7 @@ const Contract = () => {
       <Progress progress={progress[contractStatus]} />
       {contractStatus === "Endpoint" && <Connect />}
       {contractStatus === "Upload" && <UploadFile />}
-      {contractStatus === "Settings" && <Settings />}
+      {contractStatus === "Settings" && <Settings name={contractName} />}
       {contractStatus === "Deploying" && (
         <Deploy messages={messages} isDeploying />
       )}
