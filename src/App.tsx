@@ -1,6 +1,6 @@
 import { Provider } from "react-redux";
 import store from "./store/store";
-import Deploy from "./components/Contract";
+import Contracts from "./components/Contracts";
 import StyledForm from "./styles";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
       <Provider store={store}>
         <div className="App">
           <header className="App-header"></header>
-          <Deploy />
+          <Contracts />
         </div>
       </Provider>
     </StyledForm>

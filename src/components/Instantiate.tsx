@@ -5,7 +5,7 @@ import Progress from "./progress/Progress";
 import Settings from "./Settings";
 import Deploy from "./Deploy";
 
-const Contract = () => {
+const Instantiate = () => {
   const { contractStatus, deployMessages, contractName } = useSelector(
     (store) => store.ui
   );
@@ -36,4 +36,4 @@ const Contract = () => {
   );
 };
 
-export default Contract;
+export default Instantiate;
