@@ -1,8 +1,10 @@
 import { Action } from "./actions";
+import { obtainMessage, obtainStatus } from "../utils/obtainErrorMessage";
+import { ContractStatus, UIMessage } from "../types";
 
 export interface UiState {
-  deployMessages: Array<string>;
-  contractStatus: "Endpoint" | "Upload" | "Settings" | "Deployed" | "Deploying";
+  deployMessages: Array<UIMessage>;
+  contractStatus: ContractStatus;
   Gas: string;
   Endowment: string;
   Address: string | undefined;
@@ -37,20 +39,16 @@ const contractReducer = (
       return { ...state, contractStatus: "Endpoint" };
     }
     case "DeployMessage": {
-      const deployMessages = [
-        ...state.deployMessages,
-        action.payload.status.type,
-      ];
-      const isDeployed = action.payload.status.isFinalized;
-      const contractStatus = isDeployed ? "Deployed" : "Deploying";
+      const result = action.payload;
+      const message = obtainMessage(result);
+      const deployMessages = [...state.deployMessages, message];
+      const contractStatus = obtainStatus(result);
       return { ...state, deployMessages, contractStatus };
     }
     case "Gas": {
-      console.log("SetGas!");
       return { ...state, Gas: action.payload };
     }
     case "Endowment": {
-      console.log("SetEndowment!");
       return { ...state, Endowment: action.payload };
     }
     default:

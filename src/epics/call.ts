@@ -1,9 +1,9 @@
 import { Epic } from "redux-observable";
 import { Action } from "../reducers/actions";
-import { map, mergeMap, takeUntil } from "rxjs/operators";
-import { Observable } from "rxjs";
+import { map, mergeMap, takeUntil, catchError } from "rxjs/operators";
+import { Observable, EMPTY } from "rxjs";
 import { ApiRx, Keyring } from "@polkadot/api";
-import { Abi } from "@polkadot/api-contract";
+import { Abi, ContractRx } from "@polkadot/api-contract";
 import { RootState } from "../reducers/rootReducer";
 import { Bytes } from "@polkadot/types";
 import { randomAsU8a } from "@polkadot/util-crypto";
@@ -30,6 +30,7 @@ const deploy: Epic<Action, Action, RootState> = (
     map(() => {
       const api = store.value.contract.api as ApiRx;
       const abi = store.value.contract.abi as Abi;
+      const contract = new ContractRx(api, abi, "");
       const { Gas, Endowment } = store.value.ui;
       const wasm = abi.project.source.wasm;
       const gas = new BN(Gas);
@@ -47,10 +48,25 @@ const deploy: Epic<Action, Action, RootState> = (
     mergeMap((instance) => {
       const keyring = new Keyring({ type: "sr25519" });
       const alice = keyring.addFromUri("//Alice");
-      return instance.signAndSend(alice);
+      const observable = instance.signAndSend(alice).pipe(
+        catchError((error) => {
+          console.log("@@@err: ", error);
+          return EMPTY;
+        })
+      );
+
+      return observable;
     }),
     takeUntil(action$.ofType("CancelDeploy")),
     map((response) => {
+      console.log("DeployMessage: ", response.toHuman());
+      const api = store.value.contract.api as ApiRx;
+      const test = api.query.contracts.codeStorage
+        .entries()
+        .subscribe((res) => {
+          console.log("@@entry: ", JSON.stringify(res));
+        });
+      console.log("contracts: ", test);
       return { type: "DeployMessage", payload: response };
     })
   );

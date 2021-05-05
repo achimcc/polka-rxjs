@@ -15,6 +15,7 @@ const Contract = () => {
     Settings: 50,
     Deploying: 60,
     Deployed: 100,
+    Error: 0,
   };
   const statusComponent = {
     Endpoint: Connect,
@@ -22,6 +23,7 @@ const Contract = () => {
     Settings: () => Settings({ name: contractName }),
     Deploying: () => Deploy({ messages: deployMessages, isDeploying: true }),
     Deployed: () => Deploy({ messages: deployMessages, isDeploying: false }),
+    Error: () => Deploy({ messages: deployMessages, isDeploying: false }),
   };
 
   const Status = statusComponent[contractStatus];
