@@ -1,4 +1,4 @@
-import { ApiRx } from "@polkadot/api";
+import { ApiRx, ApiPromise } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
 import { ISubmittableResult } from "@polkadot/types/types";
 import { Action as DefaultAction } from "redux";
@@ -62,7 +62,7 @@ export interface Connect extends BaseAction {
 
 export interface Connected extends BaseAction {
   type: "Connected";
-  payload: ApiRx;
+  payload: ApiRx | ApiPromise;
 }
 
 export interface UploadWasmSuccess extends BaseAction {

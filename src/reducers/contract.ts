@@ -1,9 +1,9 @@
-import { ApiRx } from "@polkadot/api";
+import { ApiRx, ApiPromise } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
 import { Action } from "./actions";
 
 export interface ContractState {
-  api: ApiRx | undefined;
+  api: ApiRx | ApiPromise | undefined;
   abi: Abi | undefined;
   wasm: undefined | Uint8Array;
 }
