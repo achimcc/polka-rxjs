@@ -4,6 +4,7 @@ import Connect from "./Connect";
 import Progress from "./progress/Progress";
 import Settings from "./Settings";
 import Deploy from "./Deploy";
+import { JsxEmit } from "typescript";
 
 const Contract = () => {
   const { contractStatus, deployMessages, contractName } = useSelector(
@@ -16,18 +17,20 @@ const Contract = () => {
     Deploying: 60,
     Deployed: 100,
   };
-  const StatusComponent = {
-    Endpoint: <Connect />,
-    Upload: <UploadFile />,
-    Settings: <Settings name={contractName} />,
-    Deploying: <Deploy messages={deployMessages} isDeploying />,
-    Deployed: <Deploy messages={deployMessages} />,
+  const statusComponent = {
+    Endpoint: Connect,
+    Upload: UploadFile,
+    Settings: () => Settings({ name: contractName }),
+    Deploying: () => Deploy({ messages: deployMessages, isDeploying: true }),
+    Deployed: () => Deploy({ messages: deployMessages, isDeploying: false }),
   };
+
+  const Status = statusComponent[contractStatus];
 
   return (
     <>
       <Progress progress={progress[contractStatus]} />
-      {StatusComponent[contractStatus]}
+      <Status />
     </>
   );
 };
