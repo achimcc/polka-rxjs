@@ -4,7 +4,6 @@ import Connect from "./Connect";
 import Progress from "./progress/Progress";
 import Settings from "./Settings";
 import Deploy from "./Deploy";
-import { JsxEmit } from "typescript";
 
 const Contract = () => {
   const { contractStatus, deployMessages, contractName } = useSelector(
