@@ -2,131 +2,28 @@
 // and @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import BN from "bn.js";
+import { hexToU8a, isHex, u8aToString } from "@polkadot/util";
 
-import { BN_TEN, BN_ZERO, formatBalance, isBn } from "@polkadot/util";
-import { SiDef } from "@polkadot/util/types";
+const BYTE_STR_0 = "0".charCodeAt(0);
+const BYTE_STR_X = "x".charCodeAt(0);
+const STR_NL = "\n";
+export const NOOP = (): void => undefined;
 
-enum BitLengthOption {
-  CHAIN_SPEC = 128,
-  NORMAL_NUMBERS = 32,
-}
+export function convertResult(result: ArrayBuffer): Uint8Array {
+  const data = new Uint8Array(result);
 
-type BitLength = 8 | 16 | 32 | 64 | 128 | 256;
+  // this converts the input (if detected as hex), via the hex conversion route
+  if (data[0] === BYTE_STR_0 && data[1] === BYTE_STR_X) {
+    let hex = u8aToString(data);
 
-const DEFAULT_BITLENGTH = BitLengthOption.NORMAL_NUMBERS as BitLength;
-
-function getGlobalMaxValue(bitLength?: number): BN {
-  return new BN(2).pow(new BN(bitLength || DEFAULT_BITLENGTH)).subn(1);
-}
-
-function getSiPowers(si: SiDef | null): [BN, number, number] {
-  if (!si) {
-    return [BN_ZERO, 0, 0];
-  }
-
-  const basePower = formatBalance.getDefaults().decimals;
-
-  return [new BN(basePower + si.power), basePower, si.power];
-}
-
-function isValidNumber(
-  bn: BN,
-  bitLength: BitLength,
-  isZeroable: boolean,
-  maxValue?: BN
-): boolean {
-  if (
-    // cannot be negative
-    bn.lt(BN_ZERO) ||
-    // cannot be > than allowed max
-    !bn.lt(getGlobalMaxValue(bitLength)) ||
-    // check if 0 and it should be a value
-    (!isZeroable && bn.isZero()) ||
-    // check that the bitlengths fit
-    bn.bitLength() > (bitLength || DEFAULT_BITLENGTH) ||
-    // cannot be > max (if specified)
-    (maxValue && maxValue.gtn(0) && bn.gt(maxValue))
-  ) {
-    return false;
-  }
-
-  return true;
-}
-
-function inputToBn(
-  input: string,
-  si: SiDef | null,
-  bitLength: BitLength,
-  isZeroable: boolean,
-  maxValue?: BN
-): [BN, boolean] {
-  const [siPower, basePower, siUnitPower] = getSiPowers(si);
-
-  // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
-  const isDecimalValue = input.match(/^(\d+)\.(\d+)$/);
-
-  let result;
-
-  if (isDecimalValue) {
-    if (siUnitPower - isDecimalValue[2].length < -basePower) {
-      result = new BN(-1);
+    while (hex[hex.length - 1] === STR_NL) {
+      hex = hex.substr(0, hex.length - 1);
     }
 
-    const div = new BN(input.replace(/\.\d*$/, ""));
-    const modString = input.replace(/^\d+\./, "");
-    const mod = new BN(modString);
-
-    result = div
-      .mul(BN_TEN.pow(siPower))
-      .add(
-        mod.mul(BN_TEN.pow(new BN(basePower + siUnitPower - modString.length)))
-      );
-  } else {
-    result = new BN(input.replace(/[^\d]/g, "")).mul(BN_TEN.pow(siPower));
+    if (isHex(hex)) {
+      return hexToU8a(hex);
+    }
   }
 
-  return [result, isValidNumber(result, bitLength, isZeroable, maxValue)];
-}
-
-function getValuesFromString(
-  value: string,
-  si: SiDef | null,
-  bitLength: BitLength,
-  isZeroable: boolean,
-  maxValue?: BN
-): [string, BN, boolean] {
-  const [valueBn, isValid] = inputToBn(
-    value,
-    si,
-    bitLength,
-    isZeroable,
-    maxValue
-  );
-
-  return [value, valueBn, isValid];
-}
-
-function getValuesFromBn(valueBn: BN, si: SiDef | null): [string, BN, boolean] {
-  const value = si
-    ? valueBn
-        .div(
-          BN_TEN.pow(new BN(formatBalance.getDefaults().decimals + si.power))
-        )
-        .toString()
-    : valueBn.toString();
-
-  return [value, valueBn, true];
-}
-
-export default function getValues(
-  value: BN | string = BN_ZERO,
-  si: SiDef | null = null,
-  bitLength: BitLength = DEFAULT_BITLENGTH,
-  isZeroable: boolean = true,
-  maxValue?: BN
-): [string, BN, boolean] {
-  return isBn(value)
-    ? getValuesFromBn(value, si)
-    : getValuesFromString(value, si, bitLength, isZeroable, maxValue);
+  return data;
 }

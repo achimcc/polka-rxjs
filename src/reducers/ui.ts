@@ -1,8 +1,7 @@
-import { ISubmittableResult } from "@polkadot/types/types";
 import { Action } from "./actions";
 
 export interface UiState {
-  deployMessages: Array<ISubmittableResult>;
+  deployMessages: Array<string>;
   contractStatus: "Endpoint" | "Upload" | "Settings" | "Deployed" | "Deploying";
   Gas: string;
   Endowment: string;
@@ -38,7 +37,10 @@ const contractReducer = (
       return { ...state, contractStatus: "Endpoint" };
     }
     case "DeployMessage": {
-      const deployMessages = [...state.deployMessages, action.payload];
+      const deployMessages = [
+        ...state.deployMessages,
+        action.payload.status.type,
+      ];
       const isDeployed = action.payload.status.isFinalized;
       const contractStatus = isDeployed ? "Deployed" : "Deploying";
       return { ...state, deployMessages, contractStatus };

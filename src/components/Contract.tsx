@@ -9,7 +9,6 @@ const Contract = () => {
   const { contractStatus, deployMessages, contractName } = useSelector(
     (store) => store.ui
   );
-  const messages = deployMessages.map((message) => message.status.type);
   const progress = {
     Endpoint: 0,
     Upload: 25,
@@ -17,16 +16,18 @@ const Contract = () => {
     Deploying: 60,
     Deployed: 100,
   };
+  const StatusComponent = {
+    Endpoint: <Connect />,
+    Upload: <UploadFile />,
+    Settings: <Settings name={contractName} />,
+    Deploying: <Deploy messages={deployMessages} isDeploying />,
+    Deployed: <Deploy messages={deployMessages} />,
+  };
+
   return (
     <>
       <Progress progress={progress[contractStatus]} />
-      {contractStatus === "Endpoint" && <Connect />}
-      {contractStatus === "Upload" && <UploadFile />}
-      {contractStatus === "Settings" && <Settings name={contractName} />}
-      {contractStatus === "Deploying" && (
-        <Deploy messages={messages} isDeploying />
-      )}
-      {contractStatus === "Deployed" && <Deploy messages={messages} />}
+      {StatusComponent[contractStatus]}
     </>
   );
 };
