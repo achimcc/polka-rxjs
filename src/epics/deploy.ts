@@ -4,7 +4,6 @@ import { Observable } from "rxjs";
 import { ApiRx, Keyring } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
 import { CodeRx } from "@polkadot/api-contract";
-import { CodeSubmittableResult } from "@polkadot/api-contract/base";
 import BN from "bn.js";
 import { RootState } from "../reducers/rootReducer";
 import { Action } from "../reducers/actions";
@@ -22,19 +21,7 @@ const deploy: Epic<Action, Action, RootState> = (
       const wasm = abi.project.source.wasm;
       const gas = new BN(Gas);
       const endowment = new BN(Endowment);
-      const constructor = abi
-        .findConstructor(0)
-        .toU8a([false])
-        .toString();
-      console.log("@@@const: ", constructor);
       const fromCode = new CodeRx(api, abi, wasm).tx.new(endowment, gas, 0);
-      /*  const fromApi = api.tx.contracts.instantiateWithCode(
-        endowment,
-        gas,
-        wasm,
-        constructor,
-        encodeSalt(null)
-      ); */
       return fromCode;
     }),
     mergeMap((instance) => {
@@ -46,10 +33,6 @@ const deploy: Epic<Action, Action, RootState> = (
     takeUntil(action$.ofType("CancelDeploy")),
     map((result) => {
       const status = obtainStatus(result);
-      console.log(
-        "@@@ result: ",
-        (result as CodeSubmittableResult<"rxjs">).contract?.address.toString()
-      );
       return {
         type: "DeployMessage",
         payload: { result, status },

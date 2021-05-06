@@ -24,7 +24,6 @@ const deploy: Epic<Action, Action, RootState> = (
       const alice = keyring.addFromUri("//Alice");
       const adds = alice.address;
       const call = contract.query[method](adds, { gasLimit: gas });
-      console.log("tx: ", contract.tx, call);
       return call;
     }),
     takeUntil(action$.ofType("CancelCall")),

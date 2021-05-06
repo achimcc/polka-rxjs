@@ -39,7 +39,6 @@ const uploadContract: Epic<Action, Action, RootState> = (
       const abi = new Abi(json, api.registry.getChainProperties());
       const wasm = abi.project.source.wasm;
       const methods = abi.messages.map(({ identifier }) => identifier);
-      console.log("messages: ", methods);
       const hash = abi.project.hash.toString();
       return {
         type: "UploadContractSuccess",
