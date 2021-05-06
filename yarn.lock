@@ -2559,6 +2559,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@headlessui/react@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@headlessui/react@npm:1.1.1"
+  peerDependencies:
+    react: ">=16"
+  checksum: e749b329336c01e9919e104776e1b639a63166b2bc2f52de17944a14188e67da69fd3c945616451ebd6f7d559a4a0ffdda35a726743eea2d8deebe878bd09f20
+  languageName: node
+  linkType: hard
+
 "@istanbuljs/load-nyc-config@npm:^1.0.0":
   version: 1.1.0
   resolution: "@istanbuljs/load-nyc-config@npm:1.1.0"
@@ -14551,6 +14560,7 @@ fsevents@^1.2.7:
   version: 0.0.0-use.local
   resolution: "polka-rxjs@workspace:."
   dependencies:
+    "@headlessui/react": ^1.1.1
     "@polkadot/api": ^4.8.2-8
     "@polkadot/api-contract": ^4.8.2-8
     "@polkadot/dev": ^0.62.11

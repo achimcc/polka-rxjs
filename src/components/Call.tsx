@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Switch } from "@headlessui/react";
 import { useDispatch } from "../reducers/actions";
 import { useSelector } from "../store/store";
 import { UIContract } from "../types";
@@ -15,9 +16,11 @@ const ExecutePage = ({ address }: Props) => {
   );
   const [method, setMethod] = useState<string>();
   const [rpc, setRpc] = useState<boolean>(true);
+
   useEffect(() => {
     methods && methods.length > 1 && setMethod(methods[0]);
   }, [methods]);
+
   console.log("rpc: ", rpc);
   const onCall = () =>
     method &&
@@ -39,19 +42,20 @@ const ExecutePage = ({ address }: Props) => {
         ))}
       </select>{" "}
       RPC Call:
-      <select
-        className="flex-no-shrink p-2 ml-2 border-2 rounded"
-        onChange={(e) => setRpc(e.target.value === "yes")}
-        name="method"
-        id="mthods"
+      <Switch
+        checked={rpc}
+        onChange={setRpc}
+        className={`${
+          rpc ? "bg-blue-600" : "bg-gray-200"
+        } relative inline-flex items-center h-6 rounded-full w-11`}
       >
-        <option key="yes" value="yes">
-          Yes
-        </option>
-        <option key="no" value="no">
-          No
-        </option>
-      </select>
+        <span className="sr-only">RPC Call</span>
+        <span
+          className={`${
+            rpc ? "translate-x-6" : "translate-x-1"
+          } inline-block w-4 h-4 transform bg-white rounded-full`}
+        />
+      </Switch>
       {"  "}
       <button
         className="p-2 ml-2 bg-green-500 hover:bg-green-700 text-white font-bold border border-blue-700 rounded right-0"
