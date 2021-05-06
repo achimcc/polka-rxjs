@@ -1,8 +1,9 @@
+import { UIMessage } from "../types";
+
 interface Props {
-  text: string;
-  isError?: boolean;
+  message: UIMessage;
 }
-const Message = ({ text, isError }: Props) => (
+const Message = ({ message: { text, isError } }: Props) => (
   <div
     className={`flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-${
       isError ? "red" : "green"

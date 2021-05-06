@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import Call from "../components/Call";
+import CallResults from "../components/CallResults";
 
 interface RouteParams {
   address: string;
@@ -10,6 +11,7 @@ const ExecutePage = () => {
   return (
     <>
       <Call address={address} />
+      <CallResults />
     </>
   );
 };

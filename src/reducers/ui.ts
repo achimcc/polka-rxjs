@@ -78,6 +78,7 @@ const contractReducer = (
         break;
       }
       case "CallResult": {
+        draft.callResults.push(action.payload);
         break;
       }
       case "Gas": {
