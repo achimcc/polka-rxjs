@@ -1,14 +1,17 @@
 import { Epic } from "redux-observable";
-import { Action } from "../reducers/actions";
-import { map, mergeMap, takeUntil, takeWhile } from "rxjs/operators";
+
+import { map, mergeMap, takeUntil } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { ApiRx, Keyring } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
-import { RootState } from "../reducers/rootReducer";
+
 import { Bytes } from "@polkadot/types";
 import { randomAsU8a } from "@polkadot/util-crypto";
 import { compactAddLength, u8aToU8a } from "@polkadot/util";
 import BN from "bn.js";
+import { RootState } from "../reducers/rootReducer";
+import { Action } from "../reducers/actions";
+import { obtainStatus, obtainAddress } from "../utils/convertResults";
 
 const EMPTY_SALT = new Uint8Array();
 
@@ -30,7 +33,7 @@ const deploy: Epic<Action, Action, RootState> = (
     map(() => {
       const api = store.value.contract.api as ApiRx;
       const abi = store.value.contract.abi as Abi;
-      const { Gas, Endowment } = store.value.ui;
+      const { Gas, Endowment } = store.value.ui.instantiate;
       const wasm = abi.project.source.wasm;
       const gas = new BN(Gas);
       const endowment = new BN(Endowment);
@@ -49,10 +52,12 @@ const deploy: Epic<Action, Action, RootState> = (
       const alice = keyring.addFromUri("//Alice");
       return instance.signAndSend(alice);
     }),
-    takeWhile((response) => !response.dispatchError),
+    // takeWhile((response) => !response.dispatchError),
     takeUntil(action$.ofType("CancelDeploy")),
-    map((response) => {
-      return { type: "DeployMessage", payload: response };
+    map((result) => {
+      const status = obtainStatus(result);
+      const address = obtainAddress(result, store.value.contract.api as ApiRx);
+      return { type: "DeployMessage", payload: { result, status, address } };
     })
   );
 

@@ -11,7 +11,7 @@ const connect: Epic<Action, Action, RootState> = (
 ): Observable<Action> =>
   action$.ofType("Connect").pipe(
     switchMap(() => {
-      const url = store.value.ui.Address;
+      const url = store.value.ui.instantiate.Address;
       const provider = new WsProvider(url);
       return ApiRx.create({ provider, types: {} });
     }),

@@ -10,3 +10,8 @@ export interface UIMessage {
   text: string;
   isError: boolean;
 }
+
+export interface UIContract {
+  name: string;
+  address: string;
+}

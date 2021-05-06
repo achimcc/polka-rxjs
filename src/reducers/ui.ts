@@ -1,8 +1,9 @@
 import { Action } from "./actions";
-import { obtainMessage, obtainStatus } from "../utils/obtainErrorMessage";
-import { ContractStatus, UIMessage } from "../types";
+import { obtainMessage } from "../utils/convertResults";
+import { ContractStatus, UIMessage, UIContract } from "../types";
+import { produce } from "immer";
 
-export interface UiState {
+export interface Instantiate {
   deployMessages: Array<UIMessage>;
   contractStatus: ContractStatus;
   Gas: string;
@@ -11,49 +12,72 @@ export interface UiState {
   contractName: string;
 }
 
+export interface UiState {
+  instantiate: Instantiate;
+  contracts: Array<UIContract>;
+}
+
 const initialState: UiState = {
-  contractStatus: "Endpoint",
-  deployMessages: [],
-  Gas: "200000000000",
-  Endowment: "1000000000000000",
-  Address: "ws://127.0.0.1:9944",
-  contractName: "",
+  instantiate: {
+    contractStatus: "Endpoint",
+    deployMessages: [],
+    Gas: "200000000000",
+    Endowment: "1000000000000000",
+    Address: "ws://127.0.0.1:9944",
+    contractName: "",
+  },
+  contracts: [],
 };
 
 const contractReducer = (
   state: UiState = initialState,
   action: Action
-): UiState => {
-  switch (action.type) {
-    case "Connected": {
-      return { ...state, contractStatus: "Upload" };
+): UiState =>
+  produce(state, (draft: UiState) => {
+    switch (action.type) {
+      case "Connected": {
+        draft.instantiate.contractStatus = "Upload";
+
+        break;
+      }
+      case "UploadContractSuccess": {
+        const { name } = action.payload;
+        draft.instantiate.contractName = name;
+        draft.instantiate.contractStatus = "Settings";
+        break;
+      }
+      case "Deploy": {
+        draft.instantiate.contractStatus = "Deploying";
+        break;
+      }
+      case "CancelDeploy": {
+        draft.instantiate.contractStatus = "Endpoint";
+        break;
+      }
+      case "DeployMessage": {
+        const { result, status, address } = action.payload;
+        const message = obtainMessage(result);
+        draft.instantiate.deployMessages.push(message);
+        draft.instantiate.contractStatus = status;
+        if (status === "Deployed" && address) {
+          draft.contracts.push({
+            name: state.instantiate.contractName,
+            address,
+          });
+        }
+        break;
+      }
+      case "Gas": {
+        draft.instantiate.Gas = action.payload;
+        break;
+      }
+      case "Endowment": {
+        draft.instantiate.Endowment = action.payload;
+        break;
+      }
+      default:
+        break;
     }
-    case "UploadContractSuccess": {
-      const { name: contractName } = action.payload;
-      return { ...state, contractStatus: "Settings", contractName };
-    }
-    case "Deploy": {
-      return { ...state, contractStatus: "Deploying" };
-    }
-    case "CancelDeploy": {
-      return { ...state, contractStatus: "Endpoint" };
-    }
-    case "DeployMessage": {
-      const result = action.payload;
-      const message = obtainMessage(result);
-      const deployMessages = [...state.deployMessages, message];
-      const contractStatus = obtainStatus(result);
-      return { ...state, deployMessages, contractStatus };
-    }
-    case "Gas": {
-      return { ...state, Gas: action.payload };
-    }
-    case "Endowment": {
-      return { ...state, Endowment: action.payload };
-    }
-    default:
-      return state;
-  }
-};
+  });
 
 export default contractReducer;

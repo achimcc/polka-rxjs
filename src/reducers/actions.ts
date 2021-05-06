@@ -1,9 +1,10 @@
-import { ApiRx, ApiPromise } from "@polkadot/api";
+import { ApiRx } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
 import { ISubmittableResult } from "@polkadot/types/types";
 import { Action as DefaultAction } from "redux";
 
 import { useDispatch as _useDispatch } from "react-redux";
+import { ContractStatus } from "../types";
 
 type ActionType =
   | "Connect"
@@ -54,7 +55,11 @@ export interface Deploy extends BaseAction {
 
 export interface DeployMessage extends BaseAction {
   type: "DeployMessage";
-  payload: ISubmittableResult;
+  payload: {
+    result: ISubmittableResult;
+    status: ContractStatus;
+    address?: string;
+  };
 }
 export interface Connect extends BaseAction {
   type: "Connect";
@@ -62,7 +67,7 @@ export interface Connect extends BaseAction {
 
 export interface Connected extends BaseAction {
   type: "Connected";
-  payload: ApiRx | ApiPromise;
+  payload: ApiRx;
 }
 
 export interface UploadWasmSuccess extends BaseAction {

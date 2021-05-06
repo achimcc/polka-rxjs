@@ -31,7 +31,7 @@ const deploy: Epic<Action, Action, RootState> = (
       const api = store.value.contract.api as ApiRx;
       const abi = store.value.contract.abi as Abi;
       const contract = new ContractRx(api, abi, "");
-      const { Gas, Endowment } = store.value.ui;
+      const { Gas, Endowment } = store.value.ui.instantiate;
       const wasm = abi.project.source.wasm;
       const gas = new BN(Gas);
       const endowment = new BN(Endowment);
@@ -67,7 +67,10 @@ const deploy: Epic<Action, Action, RootState> = (
           console.log("@@entry: ", JSON.stringify(res));
         });
       console.log("contracts: ", test);
-      return { type: "DeployMessage", payload: response };
+      return {
+        type: "DeployMessage",
+        payload: { result: response, status: "Deployed" },
+      };
     })
   );
 

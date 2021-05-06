@@ -7,7 +7,7 @@ import Deploy from "./Deploy";
 
 const Instantiate = () => {
   const { contractStatus, deployMessages, contractName } = useSelector(
-    (store) => store.ui
+    (store) => store.ui.instantiate
   );
   const progress = {
     Endpoint: 0,

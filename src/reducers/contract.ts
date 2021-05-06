@@ -1,17 +1,17 @@
-import { ApiRx, ApiPromise } from "@polkadot/api";
+import { ApiRx } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
 import { Action } from "./actions";
 
 export interface ContractState {
-  api: ApiRx | ApiPromise | undefined;
   abi: Abi | undefined;
   wasm: undefined | Uint8Array;
+  api: ApiRx | undefined;
 }
 
 const initialState: ContractState = {
-  api: undefined,
   wasm: undefined,
   abi: undefined,
+  api: undefined,
 };
 
 const contractReducer = (
@@ -21,7 +21,6 @@ const contractReducer = (
   console.log("action: ", action);
   switch (action.type) {
     case "Connected": {
-      console.log("Subscribed!", action.payload, state);
       return { ...state, api: action.payload };
     }
     case "UploadWasmSuccess": {

@@ -35,7 +35,7 @@ const uploadContract: Epic<Action, Action, RootState> = (
     }),
     map(({ data, name }) => {
       const json = u8aToString(data);
-      const api = (store as any).value.contract.api as ApiRx;
+      const api = (store as any).value.ui.api as ApiRx;
       const abi = new Abi(json, api.registry.getChainProperties());
       const wasm = abi.project.source.wasm;
       const messages = abi.messages;
