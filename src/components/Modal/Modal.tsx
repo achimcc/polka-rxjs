@@ -10,9 +10,6 @@ const Modal = React.memo(({ children, closeModal }: Props) => {
   const domEl = document.getElementById("modal-root");
 
   if (!domEl) return null;
-
-  // This is where the magic happens -> our modal div will be rendered into our 'modal-root' div, no matter where we
-  // use this component inside our React tree
   return ReactDOM.createPortal(
     <div>
       <div className="flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-800">

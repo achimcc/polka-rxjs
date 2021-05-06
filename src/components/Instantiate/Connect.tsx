@@ -1,5 +1,5 @@
-import { useDispatch } from "../reducers/actions";
-import InputValue from "./InputValue";
+import { useDispatch } from "../../reducers/actions";
+import InputValue from "../InputValue";
 
 const Instantiate = () => {
   const dispatch = useDispatch();

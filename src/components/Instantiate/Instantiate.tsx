@@ -1,8 +1,8 @@
-import { useSelector } from "../store/store";
+import { useSelector } from "../../store/store";
 import UploadFile from "./UploadFile";
 import Connect from "./Connect";
-import Progress from "./progress/Progress";
-import Settings from "./Settings";
+import Progress from "./Progress/Progress";
+import Settings from "../Settings";
 import Deploy from "./Deploy";
 
 const Instantiate = () => {

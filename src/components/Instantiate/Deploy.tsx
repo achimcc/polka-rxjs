@@ -1,5 +1,5 @@
-import { useDispatch } from "../reducers/actions";
-import { UIMessage } from "../types";
+import { useDispatch } from "../../reducers/actions";
+import { UIMessage } from "../../types";
 import Cancel from "./Cancel";
 import Message from "./Message";
 
