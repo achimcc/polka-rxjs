@@ -4,12 +4,10 @@ import { UIMessage, ContractStatus } from "../types";
 
 const obtainErrorMessage = ({ dispatchError }: ISubmittableResult): string => {
   if (!dispatchError) return "no Error";
-
   if (dispatchError.isModule) {
     try {
       const mod = dispatchError.asModule;
       const error = dispatchError.registry.findMetaError(mod);
-
       return `${error.section}.${error.name}`;
     } catch (error) {
       // swallow
@@ -43,6 +41,15 @@ export const obtainAddress = (
 ): string => {
   const address = result.events
     .filter(({ event }) => api.events.contracts.Instantiated.is(event))
-    .map(({ event: { data: [contract] } }) => contract.toString());
+    .map(
+      ({
+        event: {
+          data: [contract],
+        },
+      }) => {
+        console.log("@@@contract: ", contract);
+        return contract.toString();
+      }
+    );
   return address.pop() || "Error";
 };

@@ -4,7 +4,7 @@ import { ISubmittableResult } from "@polkadot/types/types";
 import { Action as DefaultAction } from "redux";
 
 import { useDispatch as _useDispatch } from "react-redux";
-import { ContractStatus } from "../types";
+import { ContractStatus, UIMessage } from "../types";
 
 type ActionType =
   | "Connect"
@@ -17,7 +17,10 @@ type ActionType =
   | "Endowment"
   | "UploadWasmSuccess"
   | "Address"
-  | "CancelDeploy";
+  | "CancelDeploy"
+  | "Call"
+  | "CallRpc"
+  | "CallResult";
 
 export interface BaseAction extends DefaultAction<ActionType> {
   type: ActionType;
@@ -46,7 +49,13 @@ export interface UploadContract extends BaseAction {
 
 export interface UploadContractSuccess extends BaseAction {
   type: "UploadContractSuccess";
-  payload: { abi: Abi; wasm: Uint8Array; name: string };
+  payload: {
+    abi: Abi;
+    wasm: Uint8Array;
+    name: string;
+    methods: Array<string>;
+    hash: string;
+  };
 }
 
 export interface Deploy extends BaseAction {
@@ -58,7 +67,6 @@ export interface DeployMessage extends BaseAction {
   payload: {
     result: ISubmittableResult;
     status: ContractStatus;
-    address?: string;
   };
 }
 export interface Connect extends BaseAction {
@@ -79,6 +87,21 @@ export interface CancelDeploy extends BaseAction {
   type: "CancelDeploy";
 }
 
+export interface CallResult extends BaseAction {
+  type: "CallResult";
+  payload: UIMessage;
+}
+
+export interface Call extends BaseAction {
+  type: "Call";
+  payload: { address: string; method: string };
+}
+
+export interface CallRpc extends BaseAction {
+  type: "CallRpc";
+  payload: { address: string; method: string };
+}
+
 export type Action =
   | Gas
   | Endowment
@@ -90,7 +113,10 @@ export type Action =
   | Connected
   | UploadWasmSuccess
   | Address
-  | CancelDeploy;
+  | CancelDeploy
+  | Call
+  | CallRpc
+  | CallResult;
 
 type DispatchType = (args: Action) => Action;
 

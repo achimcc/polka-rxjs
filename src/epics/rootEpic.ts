@@ -1,14 +1,18 @@
 import { combineEpics } from "redux-observable";
-import connectEpic from "./connect";
-import deployEpic from "./deploy";
-import uploadContract from "./uploadContract";
+import connect from "./connect";
+import deploy from "./deploy";
+import upload from "./uploadContract";
+import call from "./call";
+import callRpc from "./callRpc";
 import { Action } from "../reducers/actions";
 import { RootState } from "../reducers/rootReducer";
 
 const rootEpic = combineEpics<Action, Action, RootState>(
-  connectEpic,
-  deployEpic,
-  uploadContract
+  connect,
+  deploy,
+  upload,
+  call,
+  callRpc
 );
 
 export default rootEpic;

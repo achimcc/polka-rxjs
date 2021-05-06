@@ -2,6 +2,7 @@ import { Action } from "./actions";
 import { obtainMessage } from "../utils/convertResults";
 import { ContractStatus, UIMessage, UIContract } from "../types";
 import { produce } from "immer";
+import { CodeSubmittableResult } from "@polkadot/api-contract/base";
 
 export interface Instantiate {
   deployMessages: Array<UIMessage>;
@@ -10,11 +11,12 @@ export interface Instantiate {
   Endowment: string;
   Address: string | undefined;
   contractName: string;
+  methods: Array<string>;
 }
-
 export interface UiState {
   instantiate: Instantiate;
   contracts: Array<UIContract>;
+  callResults: Array<UIMessage>;
 }
 
 const initialState: UiState = {
@@ -25,8 +27,10 @@ const initialState: UiState = {
     Endowment: "1000000000000000",
     Address: "ws://127.0.0.1:9944",
     contractName: "",
+    methods: [],
   },
   contracts: [],
+  callResults: [],
 };
 
 const contractReducer = (
@@ -37,13 +41,13 @@ const contractReducer = (
     switch (action.type) {
       case "Connected": {
         draft.instantiate.contractStatus = "Upload";
-
         break;
       }
       case "UploadContractSuccess": {
-        const { name } = action.payload;
+        const { name, methods } = action.payload;
         draft.instantiate.contractName = name;
         draft.instantiate.contractStatus = "Settings";
+        draft.instantiate.methods = methods;
         break;
       }
       case "Deploy": {
@@ -55,16 +59,25 @@ const contractReducer = (
         break;
       }
       case "DeployMessage": {
-        const { result, status, address } = action.payload;
+        const { result, status } = action.payload;
+        const { contractName: name, methods } = state.instantiate;
         const message = obtainMessage(result);
         draft.instantiate.deployMessages.push(message);
         draft.instantiate.contractStatus = status;
-        if (status === "Deployed" && address) {
+        if (status === "Deployed") {
+          const address =
+            (result as CodeSubmittableResult<
+              "rxjs"
+            >).contract?.address.toString() || "error";
           draft.contracts.push({
-            name: state.instantiate.contractName,
+            name,
             address,
+            methods,
           });
         }
+        break;
+      }
+      case "CallResult": {
         break;
       }
       case "Gas": {

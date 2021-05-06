@@ -5,7 +5,6 @@ import Contracts from "../components/Contracts";
 
 const ContractPage = React.memo(() => {
   const { show, RenderModal } = useModal(); // we could also spread 'hide' here, if we somehow needed it outside of the modal
-
   return (
     <div>
       <div className="w-full">

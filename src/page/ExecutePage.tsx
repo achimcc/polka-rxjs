@@ -1,11 +1,16 @@
 import { useParams } from "react-router-dom";
+import Call from "../components/Call";
 
 interface RouteParams {
   address: string;
 }
 
 const ExecutePage = () => {
-  const params = useParams<RouteParams>();
-  return <>{params.address}</>;
+  const { address } = useParams<RouteParams>();
+  return (
+    <>
+      <Call address={address} />
+    </>
+  );
 };
 export default ExecutePage;

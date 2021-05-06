@@ -1,29 +1,14 @@
 import { Epic } from "redux-observable";
-
 import { map, mergeMap, takeUntil } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { ApiRx, Keyring } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
-
-import { Bytes } from "@polkadot/types";
-import { randomAsU8a } from "@polkadot/util-crypto";
-import { compactAddLength, u8aToU8a } from "@polkadot/util";
+import { CodeRx } from "@polkadot/api-contract";
+import { CodeSubmittableResult } from "@polkadot/api-contract/base";
 import BN from "bn.js";
 import { RootState } from "../reducers/rootReducer";
 import { Action } from "../reducers/actions";
-import { obtainStatus, obtainAddress } from "../utils/convertResults";
-
-const EMPTY_SALT = new Uint8Array();
-
-function encodeSalt(
-  salt: Uint8Array | string | null = randomAsU8a()
-): Uint8Array {
-  return salt instanceof Bytes
-    ? salt
-    : salt && salt.length
-    ? compactAddLength(u8aToU8a(salt))
-    : EMPTY_SALT;
-}
+import { obtainStatus } from "../utils/convertResults";
 
 const deploy: Epic<Action, Action, RootState> = (
   action$,
@@ -37,15 +22,20 @@ const deploy: Epic<Action, Action, RootState> = (
       const wasm = abi.project.source.wasm;
       const gas = new BN(Gas);
       const endowment = new BN(Endowment);
-      const constructor = abi.findConstructor(0).toU8a([false]);
-      const fromApi = api.tx.contracts.instantiateWithCode(
+      const constructor = abi
+        .findConstructor(0)
+        .toU8a([false])
+        .toString();
+      console.log("@@@const: ", constructor);
+      const fromCode = new CodeRx(api, abi, wasm).tx.new(endowment, gas, 0);
+      /*  const fromApi = api.tx.contracts.instantiateWithCode(
         endowment,
         gas,
         wasm,
         constructor,
         encodeSalt(null)
-      );
-      return fromApi;
+      ); */
+      return fromCode;
     }),
     mergeMap((instance) => {
       const keyring = new Keyring({ type: "sr25519" });
@@ -56,8 +46,14 @@ const deploy: Epic<Action, Action, RootState> = (
     takeUntil(action$.ofType("CancelDeploy")),
     map((result) => {
       const status = obtainStatus(result);
-      const address = obtainAddress(result, store.value.contract.api as ApiRx);
-      return { type: "DeployMessage", payload: { result, status, address } };
+      console.log(
+        "@@@ result: ",
+        (result as CodeSubmittableResult<"rxjs">).contract?.address.toString()
+      );
+      return {
+        type: "DeployMessage",
+        payload: { result, status },
+      };
     })
   );
 

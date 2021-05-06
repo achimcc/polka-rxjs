@@ -14,4 +14,5 @@ export interface UIMessage {
 export interface UIContract {
   name: string;
   address: string;
+  methods?: Array<string>;
 }
