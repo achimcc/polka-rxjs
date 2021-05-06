@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "../reducers/actions";
 import { useSelector } from "../store/store";
 import { UIContract } from "../types";
@@ -15,6 +15,9 @@ const ExecutePage = ({ address }: Props) => {
   );
   const [method, setMethod] = useState<string>();
   const [rpc, setRpc] = useState<boolean>(true);
+  useEffect(() => {
+    methods && methods.length > 1 && setMethod(methods[0]);
+  }, [methods]);
   console.log("rpc: ", rpc);
   const onCall = () =>
     method &&
