@@ -2,7 +2,6 @@ import { ApiRx } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
 import { ISubmittableResult } from "@polkadot/types/types";
 import { Action as DefaultAction } from "redux";
-
 import { useDispatch as _useDispatch } from "react-redux";
 import { ContractStatus, UIMessage } from "../types";
 
@@ -22,32 +21,32 @@ type ActionType =
   | "CallRpc"
   | "CallResult";
 
-export interface BaseAction extends DefaultAction<ActionType> {
+interface BaseAction extends DefaultAction<ActionType> {
   type: ActionType;
   payload?: object | number | string;
 }
 
-export interface Gas extends BaseAction {
+interface Gas extends BaseAction {
   type: "Gas";
   payload: string;
 }
 
-export interface Endowment extends BaseAction {
+interface Endowment extends BaseAction {
   type: "Endowment";
   payload: string;
 }
 
-export interface Address extends BaseAction {
+interface Address extends BaseAction {
   type: "Address";
   payload: string;
 }
 
-export interface UploadContract extends BaseAction {
+interface UploadContract extends BaseAction {
   type: "UploadContract";
   payload: File;
 }
 
-export interface UploadContractSuccess extends BaseAction {
+interface UploadContractSuccess extends BaseAction {
   type: "UploadContractSuccess";
   payload: {
     abi: Abi;
@@ -58,51 +57,51 @@ export interface UploadContractSuccess extends BaseAction {
   };
 }
 
-export interface Deploy extends BaseAction {
+interface Deploy extends BaseAction {
   type: "Deploy";
 }
 
-export interface DeployMessage extends BaseAction {
+interface DeployMessage extends BaseAction {
   type: "DeployMessage";
   payload: {
     result: ISubmittableResult;
     status: ContractStatus;
   };
 }
-export interface Connect extends BaseAction {
+interface Connect extends BaseAction {
   type: "Connect";
 }
 
-export interface Connected extends BaseAction {
+interface Connected extends BaseAction {
   type: "Connected";
   payload: ApiRx;
 }
 
-export interface UploadWasmSuccess extends BaseAction {
+interface UploadWasmSuccess extends BaseAction {
   type: "UploadWasmSuccess";
   payload: Uint8Array;
 }
 
-export interface CancelDeploy extends BaseAction {
+interface CancelDeploy extends BaseAction {
   type: "CancelDeploy";
 }
 
-export interface CallResult extends BaseAction {
+interface CallResult extends BaseAction {
   type: "CallResult";
   payload: UIMessage;
 }
 
-export interface Call extends BaseAction {
+interface Call extends BaseAction {
   type: "Call";
   payload: { address: string; method: string };
 }
 
-export interface CallRpc extends BaseAction {
+interface CallRpc extends BaseAction {
   type: "CallRpc";
   payload: { address: string; method: string };
 }
 
-export type Action =
+export type Action<T extends ActionType = ActionType> = (
   | Gas
   | Endowment
   | UploadContract
@@ -116,11 +115,16 @@ export type Action =
   | CancelDeploy
   | Call
   | CallRpc
-  | CallResult;
+  | CallResult
+) & { type: T };
 
 type DispatchType = (args: Action) => Action;
 
 export function useDispatch(): DispatchType {
   const dispatch = _useDispatch();
   return (action: Action) => dispatch(action);
+}
+
+export function isType<P extends ActionType>(type: P) {
+  return (action: Action): action is Action<P> => action.type === type;
 }

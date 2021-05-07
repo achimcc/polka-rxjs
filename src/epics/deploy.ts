@@ -1,19 +1,20 @@
 import { Epic } from "redux-observable";
-import { map, mergeMap, takeUntil } from "rxjs/operators";
+import { map, mergeMap, takeUntil, filter } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { ApiRx, Keyring } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
 import { CodeRx } from "@polkadot/api-contract";
 import BN from "bn.js";
 import { RootState } from "../reducers/rootReducer";
-import { Action } from "../reducers/actions";
+import { Action, isType } from "../reducers/actions";
 import { obtainStatus } from "../utils/convertResults";
 
 const deploy: Epic<Action, Action, RootState> = (
   action$,
   store
 ): Observable<Action> =>
-  action$.ofType("Deploy").pipe(
+  action$.pipe(
+    filter(isType("Deploy")),
     map(() => {
       const api = store.value.contract.api as ApiRx;
       const abi = store.value.contract.abi as Abi;

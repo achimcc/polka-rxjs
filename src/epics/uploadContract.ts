@@ -1,6 +1,6 @@
 import { Epic } from "redux-observable";
-import { Action } from "../reducers/actions";
-import { map, mergeMap } from "rxjs/operators";
+import { Action, isType } from "../reducers/actions";
+import { map, mergeMap, filter } from "rxjs/operators";
 import { ApiRx } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
 import { Observable, from } from "rxjs";
@@ -12,7 +12,8 @@ const uploadContract: Epic<Action, Action, RootState> = (
   action$,
   store
 ): Observable<Action> =>
-  action$.ofType("UploadContract").pipe(
+  action$.pipe(
+    filter(isType("UploadContract")),
     mergeMap((action) => {
       //     const promise = (action.payload as File).text();
       const file = action.payload as File;

@@ -1,5 +1,5 @@
 import { Epic } from "redux-observable";
-import { Action } from "../reducers/actions";
+import { Action, isType } from "../reducers/actions";
 import { map, filter, switchMap } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { ApiRx, WsProvider } from "@polkadot/api";
@@ -9,7 +9,8 @@ const connect: Epic<Action, Action, RootState> = (
   action$,
   store
 ): Observable<Action> =>
-  action$.ofType("Connect").pipe(
+  action$.pipe(
+    filter(isType("Connect")),
     switchMap(() => {
       const url = store.value.ui.instantiate.Address;
       const provider = new WsProvider(url);
