@@ -14592,6 +14592,7 @@ fsevents@^1.2.7:
     react-scripts: 4.0.3
     redux: ^4.1.0
     redux-observable: ^1.2.0
+    redux-persist: ^6.0.0
     rxjs: ^6.6.7
     styled-components: ^5.2.3
     stylelint-config-recommended: ^5.0.0
@@ -16412,6 +16413,15 @@ fsevents@^1.2.7:
     redux: ">=4 <5"
     rxjs: ">=6.0.0-beta.0 <7"
   checksum: e9405ed5f9725dda0afbcc2a0a4693be2a08836bc5ee591748c778331c0530b055dca6068f1b280e3a1516f4a1af137f8a35558fa77632bbe016adcef4bf98bb
+  languageName: node
+  linkType: hard
+
+"redux-persist@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "redux-persist@npm:6.0.0"
+  peerDependencies:
+    redux: ">4.0.0"
+  checksum: 6b7c74526155c53ecdd49ec51d27fa07d265454440c734e8f1ef71dcbb78ae864a9965e152b9b1f35950ad933b66a79b8cf6be555f2dc89e1a61f01fc70a2965
   languageName: node
   linkType: hard
 
