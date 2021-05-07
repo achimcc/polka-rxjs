@@ -1,4 +1,4 @@
-import { useDispatch } from "../reducers/actions";
+import { useDispatch } from "../store/store";
 import { useSelector } from "../store/store";
 
 interface props {

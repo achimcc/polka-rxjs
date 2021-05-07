@@ -89,6 +89,11 @@ const contractReducer = (
         draft.instantiate.Endowment = action.payload;
         break;
       }
+      case "ForgetContract": {
+        const { address } = action.payload;
+        draft.contracts = state.contracts.filter((c) => c.address !== address);
+        break;
+      }
       default:
         break;
     }

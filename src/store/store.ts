@@ -7,6 +7,7 @@ import { createEpicMiddleware } from "redux-observable";
 import { Action } from "../reducers/actions";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { useDispatch } from "../reducers/actions";
 
 const epicMiddleware = createEpicMiddleware<Action, Action, RootState>();
 
@@ -23,8 +24,8 @@ epicMiddleware.run(rootEpic);
 
 const _useSelector = createSelectorHook<RootState>();
 
-export function useSelector<T>(fn: (store: RootState) => T): T {
+function useSelector<T>(fn: (store: RootState) => T): T {
   return fn(_useSelector((x) => x));
 }
 
-export { store, persistor };
+export { store, persistor, useSelector, useDispatch };

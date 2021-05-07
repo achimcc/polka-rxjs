@@ -11,6 +11,7 @@ type ActionType =
   | "Deploy"
   | "UploadContract"
   | "UploadContractSuccess"
+  | "ForgetContract"
   | "DeployMessage"
   | "Gas"
   | "Endowment"
@@ -101,6 +102,11 @@ interface CallRpc extends BaseAction {
   payload: { address: string; method: string };
 }
 
+interface ForgetContract extends BaseAction {
+  type: "ForgetContract";
+  payload: { address: string };
+}
+
 export type Action<T extends ActionType = ActionType> = (
   | Gas
   | Endowment
@@ -116,6 +122,7 @@ export type Action<T extends ActionType = ActionType> = (
   | Call
   | CallRpc
   | CallResult
+  | ForgetContract
 ) & { type: T };
 
 type DispatchType = (args: Action) => Action;

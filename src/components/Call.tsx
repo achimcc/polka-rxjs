@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Switch } from "@headlessui/react";
-import { useDispatch } from "../reducers/actions";
+import { useDispatch } from "../store/store";
 import { useSelector } from "../store/store";
 import { UIContract } from "../types";
 

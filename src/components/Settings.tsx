@@ -1,4 +1,4 @@
-import { useDispatch } from "../reducers/actions";
+import { useDispatch } from "../store/store";
 import InputValue from "./InputValue";
 
 interface Props {
