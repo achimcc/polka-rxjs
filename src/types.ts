@@ -1,3 +1,6 @@
+import { Abi } from "@polkadot/api-contract";
+import { AnyJson } from "@polkadot/types/types";
+
 export type ContractStatus =
   | "Endpoint"
   | "Upload"
@@ -13,6 +16,16 @@ export interface UIMessage {
 
 export interface UIContract {
   name: string;
-  address: string;
+  id: string;
+  address?: string | undefined;
   methods?: Array<string>;
+  wasm: Uint8Array;
+  json: AnyJson;
 }
+
+export interface ContractInstance {
+  contractId: string;
+  address: string | undefined;
+}
+
+export type ConnectStatus = "Unconnected" | "Connected" | "Error";

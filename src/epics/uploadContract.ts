@@ -36,14 +36,16 @@ const uploadContract: Epic<Action, Action, RootState> = (
     }),
     map(({ data, name }) => {
       const json = u8aToString(data);
+      console.log("json: ", json);
       const api = (store as any).value.contract.api as ApiRx;
       const abi = new Abi(json, api.registry.getChainProperties());
       const wasm = abi.project.source.wasm;
+      console.log("wasm: ", wasm);
       const methods = abi.messages.map(({ identifier }) => identifier);
       const hash = abi.project.hash.toString();
       return {
         type: "UploadContractSuccess",
-        payload: { abi, wasm, name, methods, hash },
+        payload: { wasm, name, methods, hash, json },
       };
     })
   );

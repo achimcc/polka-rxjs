@@ -1,10 +1,12 @@
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
-import Menu from "../components/Menu";
-import ContractPage from "./ContractPage";
+import Menu from "../components/global/Menu";
+import UploadPage from "./UploadPage";
 import ExecutePage from "./ExecutePage";
+import ConnectPage from "./ConnectPage";
+import CallPage from "./CallPage";
 
-const main = () => {
+const Main = () => {
   return (
     <>
       <Router>
@@ -20,8 +22,11 @@ const main = () => {
               <div className="flex flex-col lg:flex-row h-full w-full">
                 <div className="border h-full w-full lg:flex-1 px-3 min-h-0 min-w-0">
                   <Switch>
-                    <Route exact path="/" component={ContractPage} />
-                    <Route path="/execute/:address" component={ExecutePage} />
+                    <Route exact path="/" component={ConnectPage} />
+                    <Route exact path="/upload" component={UploadPage} />
+                    <Route path="/execute" component={ExecutePage} />
+                    <Route path="/call/:id" component={CallPage} />
+                    <Route path="/call/" component={CallPage} />
                   </Switch>
                 </div>
               </div>
@@ -43,4 +48,4 @@ const main = () => {
   );
 };
 
-export default main;
+export default Main;

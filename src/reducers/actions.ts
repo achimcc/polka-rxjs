@@ -1,6 +1,5 @@
 import { ApiRx } from "@polkadot/api";
-import { Abi } from "@polkadot/api-contract";
-import { ISubmittableResult } from "@polkadot/types/types";
+import { AnyJson, ISubmittableResult } from "@polkadot/types/types";
 import { Action as DefaultAction } from "redux";
 import { useDispatch as _useDispatch } from "react-redux";
 import { ContractStatus, UIMessage } from "../types";
@@ -8,13 +7,13 @@ import { ContractStatus, UIMessage } from "../types";
 type ActionType =
   | "Connect"
   | "Connected"
+  | "Disconnect"
+  | "Disconnected"
   | "Deploy"
   | "UploadContract"
   | "UploadContractSuccess"
   | "ForgetContract"
   | "DeployMessage"
-  | "Gas"
-  | "Endowment"
   | "UploadWasmSuccess"
   | "Address"
   | "CancelDeploy"
@@ -22,21 +21,12 @@ type ActionType =
   | "CallRpc"
   | "CallResult"
   | "Instantiate"
+  | "StartInstantiate"
   | "ApiEvent";
 
 interface BaseAction extends DefaultAction<ActionType> {
   type: ActionType;
   payload?: object | number | string;
-}
-
-interface Gas extends BaseAction {
-  type: "Gas";
-  payload: string;
-}
-
-interface Endowment extends BaseAction {
-  type: "Endowment";
-  payload: string;
 }
 
 interface Address extends BaseAction {
@@ -52,16 +42,17 @@ interface UploadContract extends BaseAction {
 interface UploadContractSuccess extends BaseAction {
   type: "UploadContractSuccess";
   payload: {
-    abi: Abi;
     wasm: Uint8Array;
     name: string;
     methods: Array<string>;
     hash: string;
+    json: AnyJson;
   };
 }
 
 interface Deploy extends BaseAction {
   type: "Deploy";
+  payload: { gas: string; endowment: string };
 }
 
 interface DeployMessage extends BaseAction {
@@ -73,11 +64,20 @@ interface DeployMessage extends BaseAction {
 }
 interface Connect extends BaseAction {
   type: "Connect";
+  payload: { url: string };
 }
 
 interface Connected extends BaseAction {
   type: "Connected";
   payload: ApiRx;
+}
+
+interface Disconnect extends BaseAction {
+  type: "Disconnect";
+}
+
+interface Disconnected extends BaseAction {
+  type: "Disconnected";
 }
 
 interface UploadWasmSuccess extends BaseAction {
@@ -96,21 +96,26 @@ interface CallResult extends BaseAction {
 
 interface Call extends BaseAction {
   type: "Call";
-  payload: { address: string; method: string };
+  payload: { id: string; method: string };
 }
 
 interface CallRpc extends BaseAction {
   type: "CallRpc";
-  payload: { address: string; method: string };
+  payload: { id: string; method: string };
 }
 
 interface ForgetContract extends BaseAction {
   type: "ForgetContract";
-  payload: { address: string };
+  payload: { id: string };
 }
 
 interface Instantiate extends BaseAction {
   type: "Instantiate";
+  payload: { gas: string; endowment: string; id: string };
+}
+
+interface StartInstantiate extends BaseAction {
+  type: "StartInstantiate";
 }
 
 interface ApiEvent extends BaseAction {
@@ -118,8 +123,6 @@ interface ApiEvent extends BaseAction {
 }
 
 export type Action<T extends ActionType = ActionType> = (
-  | Gas
-  | Endowment
   | UploadContract
   | UploadContractSuccess
   | Deploy
@@ -135,6 +138,9 @@ export type Action<T extends ActionType = ActionType> = (
   | ForgetContract
   | Instantiate
   | ApiEvent
+  | Disconnect
+  | Disconnected
+  | StartInstantiate
 ) & { type: T };
 
 type DispatchType = (args: Action) => Action;

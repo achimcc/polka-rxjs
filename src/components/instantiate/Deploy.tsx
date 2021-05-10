@@ -1,7 +1,7 @@
 import { useDispatch } from "../../reducers/actions";
 import { UIMessage } from "../../types";
 import Cancel from "./Cancel";
-import Message from "../Message";
+import Message from "../shared/Message";
 
 interface Props {
   messages: Array<UIMessage>;

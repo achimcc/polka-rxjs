@@ -1,4 +1,4 @@
-import { useDispatch } from "../../reducers/actions";
+import { useDispatch } from "../store/store";
 
 const UploadFile = () => {
   const dispatch = useDispatch();

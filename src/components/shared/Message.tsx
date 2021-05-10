@@ -1,4 +1,4 @@
-import { UIMessage } from "../types";
+import { UIMessage } from "../../types";
 
 interface Props {
   message: UIMessage;

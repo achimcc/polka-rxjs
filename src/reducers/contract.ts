@@ -25,14 +25,12 @@ const contractReducer = (
         draft.api = action.payload;
         break;
       }
-      case "UploadWasmSuccess": {
-        draft.wasm = action.payload;
+      case "Disconnected": {
+        draft.api = undefined;
         break;
       }
-      case "UploadContractSuccess": {
-        const { abi, wasm } = action.payload;
-        draft.abi = abi;
-        draft.wasm = wasm;
+      case "UploadWasmSuccess": {
+        draft.wasm = action.payload;
         break;
       }
     }

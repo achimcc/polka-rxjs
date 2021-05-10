@@ -47,7 +47,6 @@ export const obtainAddress = (
           data: [contract],
         },
       }) => {
-        console.log("@@@contract: ", contract);
         return contract.toString();
       }
     );

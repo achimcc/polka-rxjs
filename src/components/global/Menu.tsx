@@ -1,33 +1,33 @@
 import { NavLink } from "react-router-dom";
 import { FaFileContract } from "react-icons/fa";
 import { FiPlayCircle } from "react-icons/fi";
+import { useSelector } from "../../store/store";
+import ConnectIcon from "./ConnectIcon";
 
 const Menu = () => {
+  const { connectStatus: status } = useSelector((store) => store.ui);
+
   return (
     <>
       <nav>
         <ul className="text-center flex flex-row justify-center sm:flex-col w-full">
           <li
-            className="h-14 border-b border-gray-900 hidden  sm:block"
+            className="h-14 border-b border-gray-900 hidden flex-1 sm:block"
             title="Home"
           >
             <NavLink
               to="/"
               className="h-full w-full hover:bg-gray-700 block p-3"
             >
-              <img
-                className="object-contain h-full w-full"
-                src="https://avatars1.githubusercontent.com/u/6157842?v=4"
-                alt="open-source"
-              />
+              <ConnectIcon status={status} />
             </NavLink>
           </li>
           <li
             className="sm:border-b border-gray-900 flex-1  sm:w-full"
-            title="Contracts"
+            title="Upload Contracts"
           >
             <NavLink
-              to="/"
+              to="/upload"
               exact
               className="h-full w-full bg-gray-800 hover:bg-gray-700 block p-3"
               activeClassName="bg-green-800"
@@ -39,10 +39,22 @@ const Menu = () => {
           </li>
           <li
             className="sm:border-b border-gray-900 flex-1 sm:w-full"
-            title="Execute"
+            title="Execute Contracts"
           >
             <NavLink
               to="/execute"
+              className="h-full w-full bg-gray-800 hover:bg-gray-700 block p-3"
+              activeClassName="bg-green-800"
+            >
+              <FiPlayCircle className="inline-block" />
+            </NavLink>
+          </li>
+          <li
+            className="sm:border-b border-gray-900 flex-1 sm:w-full"
+            title="Execute Contract Functions"
+          >
+            <NavLink
+              to="/call"
               className="h-full w-full bg-gray-800 hover:bg-gray-700 block p-3"
               activeClassName="bg-green-800"
             >

@@ -1,5 +1,5 @@
-import { useSelector } from "../store/store";
-import Message from "./Message";
+import { useSelector } from "../../store/store";
+import Message from "../shared/Message";
 
 const CallResults = () => {
   const { callResults } = useSelector((store) => store.ui);

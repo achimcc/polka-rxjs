@@ -1,12 +1,16 @@
 import { useSelector } from "../../store/store";
-import UploadFile from "./UploadFile";
-import Connect from "./Connect";
-import Progress from "./Progress/Progress";
-import Settings from "../Settings";
-import Deploy from "./Deploy";
+import UploadFile from "../UploadFile";
+import Connect from "../connect/Connect";
+import Progress from "../shared/Progress/Progress";
+import Settings from "./Settings";
+import Deploy from "../instantiate/Deploy";
 
-const Instantiate = () => {
-  const { contractStatus, deployMessages, contractName } = useSelector(
+interface Props {
+  id: string;
+}
+
+const Instantiate = ({ id }: Props) => {
+  const { contractStatus, deployMessages } = useSelector(
     (store) => store.ui.instantiate
   );
   const progress = {
@@ -20,7 +24,7 @@ const Instantiate = () => {
   const statusComponent = {
     Endpoint: Connect,
     Upload: UploadFile,
-    Settings: () => Settings({ name: contractName }),
+    Settings: () => Settings({ id }),
     Deploying: () => Deploy({ messages: deployMessages, isDeploying: true }),
     Deployed: () => Deploy({ messages: deployMessages, isDeploying: false }),
     Error: () => Deploy({ messages: deployMessages, isDeploying: false }),

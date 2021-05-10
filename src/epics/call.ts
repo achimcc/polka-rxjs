@@ -7,6 +7,7 @@ import { Abi, ContractRx } from "@polkadot/api-contract";
 import { RootState } from "../store/rootReducer";
 import { obtainMessage } from "../utils/convertResults";
 import BN from "bn.js";
+import { UIContract } from "../types";
 
 const deploy: Epic<Action, Action, RootState> = (
   action$,
@@ -15,10 +16,13 @@ const deploy: Epic<Action, Action, RootState> = (
   action$.pipe(
     filter(isType("Call")),
     map((action) => {
-      const { address, method } = action.payload;
+      const { id, method } = action.payload;
       const api = store.value.contract.api as ApiRx;
-      const abi = store.value.contract.abi as Abi;
-      const contract = new ContractRx(api, abi, address);
+      const { json, address } = store.value.ui.contracts.find(
+        (c) => c.id === id
+      ) as UIContract;
+      const abi = new Abi(json, api.registry.getChainProperties());
+      const contract = new ContractRx(api, abi, address as string);
       const gas = new BN("800000000");
       const call = contract.tx[method]({ gasLimit: gas });
       return call;

@@ -2568,6 +2568,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@heroicons/react@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@heroicons/react@npm:1.0.1"
+  peerDependencies:
+    react: ">= 16"
+  checksum: ff13b6b896c21d1e9a952afc8d646d95fa34174716f2a741ee0db2300d10903a6c708b1fb1d841a461a61eb055c104a2be3367fe236a25d3e7576704183743ff
+  languageName: node
+  linkType: hard
+
 "@istanbuljs/load-nyc-config@npm:^1.0.0":
   version: 1.1.0
   resolution: "@istanbuljs/load-nyc-config@npm:1.1.0"
@@ -10315,6 +10324,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"heroicons@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "heroicons@npm:1.0.1"
+  checksum: 9b83b6555cc37726f76a587620ad0a1bd568ffc70e1756ab40e5f24a516ed5d7cf59be029b3fe8d7ef00e6c81c87dcd6fc0c636bbac4389d39e3d17626038259
+  languageName: node
+  linkType: hard
+
 "hex-color-regex@npm:^1.1.0":
   version: 1.1.0
   resolution: "hex-color-regex@npm:1.1.0"
@@ -14551,6 +14567,7 @@ fsevents@^1.2.7:
   resolution: "polka-rxjs@workspace:."
   dependencies:
     "@headlessui/react": ^1.1.1
+    "@heroicons/react": ^1.0.1
     "@polkadot/api": ^4.9.2
     "@polkadot/api-contract": ^4.9.2
     "@polkadot/dev": ^0.62.13
@@ -14571,7 +14588,9 @@ fsevents@^1.2.7:
     babel-plugin-macros: ^3.0.1
     bn.js: ^5.2.0
     eslint-config-react-app: ^6.0.0
+    heroicons: ^1.0.1
     immer: ^9.0.2
+    nanoid: ^3.1.22
     postcss: ^8.2.13
     postcss-cli: ^8.3.1
     react: ^17.0.2

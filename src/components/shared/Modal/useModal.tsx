@@ -13,10 +13,18 @@ export const useModal = () => {
 
   const show = () => setIsVisible(true);
   const hide = () => setIsVisible(false);
+  interface Props {
+    children: React.ReactChild;
+    id?: string;
+  }
 
-  const RenderModal = ({ children }: { children: React.ReactChild }) => (
+  const RenderModal = ({ children, id = "modal-root" }: Props) => (
     <React.Fragment>
-      {isVisible && <Modal closeModal={hide}>{children}</Modal>}
+      {isVisible && (
+        <Modal id={id} closeModal={hide}>
+          {children}
+        </Modal>
+      )}
     </React.Fragment>
   );
 

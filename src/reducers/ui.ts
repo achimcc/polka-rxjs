@@ -1,36 +1,35 @@
 import { Action } from "./actions";
 import { obtainMessage } from "../utils/convertResults";
-import { ContractStatus, UIMessage, UIContract } from "../types";
+import { ContractStatus, UIMessage, UIContract, ConnectStatus } from "../types";
 import { produce } from "immer";
 import { CodeSubmittableResult } from "@polkadot/api-contract/base";
+import { nanoid } from "nanoid";
 
 export interface Instantiate {
   deployMessages: Array<UIMessage>;
   contractStatus: ContractStatus;
-  Gas: string;
-  Endowment: string;
-  Address: string | undefined;
   contractName: string;
-  methods: Array<string>;
+  id: string;
 }
 export interface UiState {
   instantiate: Instantiate;
   contracts: Array<UIContract>;
   callResults: Array<UIMessage>;
+  connectStatus: ConnectStatus;
+  connectUrl: string;
 }
 
 const initialState: UiState = {
   instantiate: {
-    contractStatus: "Endpoint",
+    contractStatus: "Settings",
     deployMessages: [],
-    Gas: "200000000000",
-    Endowment: "1000000000000000",
-    Address: "ws://127.0.0.1:9944",
     contractName: "",
-    methods: [],
+    id: "",
   },
   contracts: [],
   callResults: [],
+  connectStatus: "Unconnected",
+  connectUrl: "",
 };
 
 const contractReducer = (
@@ -41,13 +40,23 @@ const contractReducer = (
     switch (action.type) {
       case "Connected": {
         draft.instantiate.contractStatus = "Upload";
+        draft.connectStatus = "Connected";
+        break;
+      }
+      case "Disconnected": {
+        draft.connectStatus = "Unconnected";
         break;
       }
       case "UploadContractSuccess": {
-        const { name, methods } = action.payload;
-        draft.instantiate.contractName = name;
-        draft.instantiate.contractStatus = "Settings";
-        draft.instantiate.methods = methods;
+        const { name, methods, wasm, json } = action.payload;
+        const contract: UIContract = {
+          name,
+          methods,
+          wasm,
+          json,
+          id: nanoid(9),
+        };
+        draft.contracts.push(contract);
         break;
       }
       case "Deploy": {
@@ -58,13 +67,16 @@ const contractReducer = (
         draft.instantiate.contractStatus = "Endpoint";
         break;
       }
-      case "Instantiate": {
+      case "StartInstantiate": {
         draft.instantiate = initialState.instantiate;
+        break;
+      }
+      case "Instantiate": {
+        draft.instantiate.id = action.payload.id;
         break;
       }
       case "DeployMessage": {
         const { result, status } = action.payload;
-        const { contractName: name, methods } = state.instantiate;
         const message = obtainMessage(result);
         draft.instantiate.deployMessages.push(message);
         draft.instantiate.contractStatus = status;
@@ -73,11 +85,10 @@ const contractReducer = (
             (result as CodeSubmittableResult<
               "rxjs"
             >).contract?.address.toString() || "error";
-          draft.contracts.push({
-            name,
-            address,
-            methods,
-          });
+          const index = draft.contracts.findIndex(
+            (c) => c.id === draft.instantiate.id
+          );
+          draft.contracts[index].address = address;
         }
         break;
       }
@@ -85,17 +96,13 @@ const contractReducer = (
         draft.callResults.push(action.payload);
         break;
       }
-      case "Gas": {
-        draft.instantiate.Gas = action.payload;
-        break;
-      }
-      case "Endowment": {
-        draft.instantiate.Endowment = action.payload;
+      case "Address": {
+        draft.connectUrl = action.payload;
         break;
       }
       case "ForgetContract": {
-        const { address } = action.payload;
-        draft.contracts = state.contracts.filter((c) => c.address !== address);
+        const { id } = action.payload;
+        draft.contracts = state.contracts.filter((c) => c.id !== id);
         break;
       }
       default:

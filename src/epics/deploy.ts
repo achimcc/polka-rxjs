@@ -8,21 +8,25 @@ import BN from "bn.js";
 import { RootState } from "../store/rootReducer";
 import { Action, isType } from "../reducers/actions";
 import { obtainStatus } from "../utils/convertResults";
+import { UIContract } from "../types";
 
 const deploy: Epic<Action, Action, RootState> = (
   action$,
   store
 ): Observable<Action> =>
   action$.pipe(
-    filter(isType("Deploy")),
-    map(() => {
+    filter(isType("Instantiate")),
+    map((action) => {
       const api = store.value.contract.api as ApiRx;
-      const abi = store.value.contract.abi as Abi;
-      const { Gas, Endowment } = store.value.ui.instantiate;
-      const wasm = abi.project.source.wasm;
-      const gas = new BN(Gas);
-      const endowment = new BN(Endowment);
-      const fromCode = new CodeRx(api, abi, wasm).tx.new(endowment, gas, 0);
+      const { gas, endowment, id } = action.payload;
+      const contract = store.value.ui.contracts.find(
+        (c) => c.id === id
+      ) as UIContract;
+      const { wasm, json } = contract;
+      const abi = new Abi(json, api.registry.getChainProperties());
+      const Gas = new BN(gas);
+      const Endowment = new BN(endowment);
+      const fromCode = new CodeRx(api, abi, wasm).tx.new(Endowment, Gas, 0);
       return fromCode;
     }),
     mergeMap((instance) => {

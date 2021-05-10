@@ -1,18 +1,15 @@
-import { useParams } from "react-router-dom";
-import Call from "../components/Call";
-import CallResults from "../components/CallResults";
-
-interface RouteParams {
-  address: string;
-}
+import { useSelector } from "../store/store";
+import Contract from "../components/execute/Contract";
 
 const ExecutePage = () => {
-  const { address } = useParams<RouteParams>();
+  const { contracts } = useSelector((store) => store.ui);
   return (
     <>
-      <Call address={address} />
-      <CallResults />
+      {contracts.map((contract) => (
+        <Contract contract={contract} />
+      ))}
     </>
   );
 };
+
 export default ExecutePage;

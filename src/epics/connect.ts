@@ -11,8 +11,8 @@ const connect: Epic<Action, Action, RootState> = (
 ): Observable<Action> =>
   action$.pipe(
     filter(isType("Connect")),
-    switchMap(() => {
-      const url = store.value.ui.instantiate.Address;
+    switchMap((action) => {
+      const { url } = action.payload;
       const provider = new WsProvider(url);
       const instance = new ApiRx({ provider, types: {} });
       return instance.isReady;
@@ -21,7 +21,7 @@ const connect: Epic<Action, Action, RootState> = (
       api.on("connected", (s) => {
         console.log("connect: ", s);
       });
-      console.log("api message! ", () => api.on("connected", () => {}));
+      console.log("api message! ", api);
       return { type: "Connected", payload: api };
     })
   );
