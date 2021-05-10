@@ -5,7 +5,7 @@ import { ApiRx, Keyring } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
 import { CodeRx } from "@polkadot/api-contract";
 import BN from "bn.js";
-import { RootState } from "../reducers/rootReducer";
+import { RootState } from "../store/rootReducer";
 import { Action, isType } from "../reducers/actions";
 import { obtainStatus } from "../utils/convertResults";
 

@@ -21,7 +21,7 @@ const Contract = ({ contract: { name, address } }: Props) => {
         Forget
       </button>
       <Link to={`/execute/${address}`}>
-        <button className="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red">
+        <button className="w-full m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
           Execute
         </button>
       </Link>

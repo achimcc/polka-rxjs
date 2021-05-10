@@ -4,7 +4,7 @@ import { map, mergeMap, filter } from "rxjs/operators";
 import { ApiRx } from "@polkadot/api";
 import { Abi } from "@polkadot/api-contract";
 import { Observable, from } from "rxjs";
-import { RootState } from "../reducers/rootReducer";
+import { RootState } from "../store/rootReducer";
 import { u8aToString } from "@polkadot/util";
 import { NOOP, convertResult } from "../utils/convertValues";
 

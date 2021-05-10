@@ -1,12 +1,12 @@
 import { createStore, applyMiddleware } from "redux";
 import { createSelectorHook } from "react-redux";
-import rootReducer from "../reducers/rootReducer";
-import { RootState } from "../reducers/rootReducer";
-import rootEpic from "../epics/rootEpic";
 import { createEpicMiddleware } from "redux-observable";
-import { Action } from "../reducers/actions";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import rootReducer from "./rootReducer";
+import { RootState } from "./rootReducer";
+import rootEpic from "./rootEpic";
+import { Action } from "../reducers/actions";
 import { useDispatch } from "../reducers/actions";
 
 const epicMiddleware = createEpicMiddleware<Action, Action, RootState>();

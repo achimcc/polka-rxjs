@@ -3,7 +3,7 @@ import { Action, isType } from "../reducers/actions";
 import { map, filter, switchMap } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { ApiRx, WsProvider } from "@polkadot/api";
-import { RootState } from "../reducers/rootReducer";
+import { RootState } from "../store/rootReducer";
 
 const connect: Epic<Action, Action, RootState> = (
   action$,
@@ -14,10 +14,14 @@ const connect: Epic<Action, Action, RootState> = (
     switchMap(() => {
       const url = store.value.ui.instantiate.Address;
       const provider = new WsProvider(url);
-      return ApiRx.create({ provider, types: {} });
+      const instance = new ApiRx({ provider, types: {} });
+      return instance.isReady;
     }),
-    filter((api) => api.isConnected),
     map((api) => {
+      api.on("connected", (s) => {
+        console.log("connect: ", s);
+      });
+      console.log("api message! ", () => api.on("connected", () => {}));
       return { type: "Connected", payload: api };
     })
   );

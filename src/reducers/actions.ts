@@ -20,7 +20,9 @@ type ActionType =
   | "CancelDeploy"
   | "Call"
   | "CallRpc"
-  | "CallResult";
+  | "CallResult"
+  | "Instantiate"
+  | "ApiEvent";
 
 interface BaseAction extends DefaultAction<ActionType> {
   type: ActionType;
@@ -107,6 +109,14 @@ interface ForgetContract extends BaseAction {
   payload: { address: string };
 }
 
+interface Instantiate extends BaseAction {
+  type: "Instantiate";
+}
+
+interface ApiEvent extends BaseAction {
+  type: "ApiEvent";
+}
+
 export type Action<T extends ActionType = ActionType> = (
   | Gas
   | Endowment
@@ -123,6 +133,8 @@ export type Action<T extends ActionType = ActionType> = (
   | CallRpc
   | CallResult
   | ForgetContract
+  | Instantiate
+  | ApiEvent
 ) & { type: T };
 
 type DispatchType = (args: Action) => Action;

@@ -5,7 +5,7 @@ import BN from "bn.js";
 import { ApiRx, Keyring } from "@polkadot/api";
 import { Abi, ContractRx } from "@polkadot/api-contract";
 import { ContractCallOutcome } from "@polkadot/api-contract/types";
-import { RootState } from "../reducers/rootReducer";
+import { RootState } from "../store/rootReducer";
 import { Action, isType } from "../reducers/actions";
 
 const deploy: Epic<Action, Action, RootState> = (

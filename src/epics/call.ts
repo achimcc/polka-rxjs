@@ -4,7 +4,7 @@ import { map, mergeMap, takeUntil, filter } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { ApiRx, Keyring } from "@polkadot/api";
 import { Abi, ContractRx } from "@polkadot/api-contract";
-import { RootState } from "../reducers/rootReducer";
+import { RootState } from "../store/rootReducer";
 import { obtainMessage } from "../utils/convertResults";
 import BN from "bn.js";
 

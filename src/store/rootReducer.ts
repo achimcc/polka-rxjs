@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import contractReducer from "./contract";
-import { ContractState } from "./contract";
-import uiReducer from "./ui";
-import { UiState } from "./ui";
+import contractReducer from "../reducers/contract";
+import { ContractState } from "../reducers/contract";
+import uiReducer from "../reducers/ui";
+import { UiState } from "../reducers/ui";
 
 const rootReducer = combineReducers({
   contract: contractReducer,

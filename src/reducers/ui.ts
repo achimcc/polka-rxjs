@@ -58,6 +58,10 @@ const contractReducer = (
         draft.instantiate.contractStatus = "Endpoint";
         break;
       }
+      case "Instantiate": {
+        draft.instantiate = initialState.instantiate;
+        break;
+      }
       case "DeployMessage": {
         const { result, status } = action.payload;
         const { contractName: name, methods } = state.instantiate;
