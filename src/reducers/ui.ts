@@ -98,7 +98,6 @@ const contractReducer = (
             id: state.instantiate.id,
             address,
           };
-          console.log("instance : ", instance);
           draft.instances.push(instance);
         }
         break;

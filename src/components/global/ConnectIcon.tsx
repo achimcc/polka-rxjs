@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "../../store/store";
 import { ConnectStatus } from "../../types";
 
 interface Props {
@@ -7,14 +5,6 @@ interface Props {
 }
 
 const ConnectIcon = ({ status }: Props) => {
-  const {
-    contract: { api },
-  } = useSelector((store) => store);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const isConnected = api && api.isConnected;
-    if (!isConnected) dispatch({ type: "Disconnected" });
-  }, [api, dispatch]);
   const connectColor = {
     Unconnected: "bg-yellow-500",
     Connected: "bg-green-500",

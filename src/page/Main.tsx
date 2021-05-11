@@ -25,8 +25,8 @@ const Main = () => {
                     <Route exact path="/" component={ConnectPage} />
                     <Route exact path="/upload" component={UploadPage} />
                     <Route path="/execute" component={ExecutePage} />
-                    <Route path="/call/:id" component={CallPage} />
-                    <Route path="/call/" component={CallPage} />
+                    <Route path="/call/:address" component={CallPage} />
+                    <Route exact path="/call" component={CallPage} />
                   </Switch>
                 </div>
               </div>

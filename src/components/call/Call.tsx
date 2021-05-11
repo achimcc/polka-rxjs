@@ -2,18 +2,17 @@ import { useState } from "react";
 import { Switch } from "@headlessui/react";
 import { useDispatch } from "../../store/store";
 import { useSelector } from "../../store/store";
-import { Instance } from "../../types";
 
 interface Props {
   address: string;
 }
 
 const Call = ({ address }: Props) => {
-  console.log("address: ", address);
   const dispatch = useDispatch();
-  const { id } = useSelector((store) =>
-    store.ui.instances.find((i) => i.address === address)
-  ) as Instance;
+  const { id = undefined } =
+    useSelector((store) =>
+      store.ui.instances.find((i) => i.address === address)
+    ) || {};
   const { methods = [] } =
     useSelector((store) => store.ui.contracts.find((c) => c.id === id)) || {};
   const [method, setMethod] = useState<string>();
