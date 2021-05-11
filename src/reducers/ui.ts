@@ -93,20 +93,18 @@ const contractReducer = (
             (result as CodeSubmittableResult<
               "rxjs"
             >).contract?.address.toString() || "error";
+
           const instance: Instance = {
-            id: draft.instantiate.id,
+            id: state.instantiate.id,
             address,
           };
+          console.log("instance : ", instance);
           draft.instances.push(instance);
         }
         break;
       }
       case "CallResult": {
         draft.callResults.push(action.payload);
-        break;
-      }
-      case "Address": {
-        draft.connectUrl = action.payload;
         break;
       }
       case "ForgetContract": {

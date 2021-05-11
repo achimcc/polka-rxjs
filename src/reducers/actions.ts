@@ -15,23 +15,16 @@ type ActionType =
   | "ForgetContract"
   | "DeployMessage"
   | "UploadWasmSuccess"
-  | "Address"
   | "CancelDeploy"
   | "Call"
   | "CallRpc"
   | "CallResult"
   | "Instantiate"
-  | "StartInstantiate"
-  | "ApiEvent";
+  | "StartInstantiate";
 
 interface BaseAction extends DefaultAction<ActionType> {
   type: ActionType;
   payload?: object | number | string;
-}
-
-interface Address extends BaseAction {
-  type: "Address";
-  payload: string;
 }
 
 interface UploadContract extends BaseAction {
@@ -118,10 +111,6 @@ interface StartInstantiate extends BaseAction {
   type: "StartInstantiate";
 }
 
-interface ApiEvent extends BaseAction {
-  type: "ApiEvent";
-}
-
 export type Action<T extends ActionType = ActionType> = (
   | UploadContract
   | UploadContractSuccess
@@ -130,14 +119,12 @@ export type Action<T extends ActionType = ActionType> = (
   | Connect
   | Connected
   | UploadWasmSuccess
-  | Address
   | CancelDeploy
   | Call
   | CallRpc
   | CallResult
   | ForgetContract
   | Instantiate
-  | ApiEvent
   | Disconnect
   | Disconnected
   | StartInstantiate

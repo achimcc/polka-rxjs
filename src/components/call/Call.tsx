@@ -9,6 +9,7 @@ interface Props {
 }
 
 const Call = ({ address }: Props) => {
+  console.log("address: ", address);
   const dispatch = useDispatch();
   const { id } = useSelector((store) =>
     store.ui.instances.find((i) => i.address === address)

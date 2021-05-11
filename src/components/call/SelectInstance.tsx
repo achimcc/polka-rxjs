@@ -2,36 +2,38 @@ import { useState, useEffect, useCallback } from "react";
 import { useSelector } from "../../store/store";
 
 interface Props {
-  id?: string;
-  onChange: (id: string) => void;
+  address?: string;
+  onChange: (address: string) => void;
 }
-const SelectInstance = ({ id, onChange }: Props) => {
-  const { contracts } = useSelector((store) => store.ui);
-  const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
+const SelectInstance = ({ address, onChange }: Props) => {
+  const { instances } = useSelector((store) => store.ui);
+  const [selectedAddress, setSelectedAddress] = useState<string | undefined>(
+    undefined
+  );
   const _onChange = useCallback(
-    (id: string) => {
-      setSelectedId(id);
-      onChange(id);
+    (address: string) => {
+      setSelectedAddress(address);
+      onChange(address);
     },
-    [setSelectedId, onChange]
+    [setSelectedAddress, onChange]
   );
   useEffect(() => {
-    if (id) _onChange(id);
-    else if (contracts && contracts.length > 0) _onChange(contracts[0].id);
-  }, [selectedId, _onChange, id, contracts]);
+    if (address) _onChange(address);
+    else if (instances && instances.length > 0) _onChange(instances[0].id);
+  }, [selectedAddress, _onChange, address, instances]);
   return (
     <>
       Instance to Call:
       <select
         className="flex-no-shrink p-2 ml-2 border-2 rounded"
-        onChange={(e) => setSelectedId(e.target.value)}
+        onChange={(e) => setSelectedAddress(e.target.value)}
         name="method"
         id="methods"
-        value={selectedId}
+        value={selectedAddress}
       >
-        {contracts.map((contract) => (
-          <option key={contract.id} value={contract.id}>
-            {contract.name}
+        {instances.map((instance) => (
+          <option key={instance.address} value={instance.address}>
+            {instance.address}
           </option>
         ))}
       </select>

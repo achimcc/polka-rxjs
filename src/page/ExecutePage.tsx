@@ -1,13 +1,13 @@
 import { useSelector } from "../store/store";
-import Contract from "../components/execute/Contract";
+import ContractInstance from "../components/execute/ContractInstance";
 
 const ExecutePage = () => {
-  const { contracts } = useSelector((store) => store.ui);
+  const { instances } = useSelector((store) => store.ui);
   return (
     <>
       <div className="bg-white rounded shadow p-6 m-4 w-full">
-        {contracts.map((contract) => (
-          <Contract contract={contract} />
+        {instances.map((instance) => (
+          <ContractInstance instance={instance} />
         ))}
       </div>
     </>

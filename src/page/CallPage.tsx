@@ -5,19 +5,24 @@ import CallResults from "../components/call/CallResults";
 import SelectInstance from "../components/call/SelectInstance";
 
 interface RouteParams {
-  id?: string;
+  address?: string;
 }
 
-const ExecutePage = () => {
-  const { id } = useParams<RouteParams>();
-  const [selectedId, setSelectedId] = useState<string | undefined>(id);
+const CallPage = () => {
+  const { address } = useParams<RouteParams>();
+  const [selectedAddress, setSelectedAddress] = useState<string | undefined>(
+    address
+  );
   return (
     <>
       <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans my-3.5">
-        <SelectInstance id={selectedId} onChange={setSelectedId} />{" "}
+        <SelectInstance
+          address={selectedAddress}
+          onChange={setSelectedAddress}
+        />{" "}
       </div>
       <div className="h-100 w-full flex items-center justify-start bg-teal-lightest font-sans my-3.5">
-        {selectedId && <Call id={selectedId} />}
+        {selectedAddress && <Call address={selectedAddress} />}
       </div>
       <div className="bg-white rounded shadow p-6 m-4 w-full">
         Results:
@@ -26,4 +31,4 @@ const ExecutePage = () => {
     </>
   );
 };
-export default ExecutePage;
+export default CallPage;
