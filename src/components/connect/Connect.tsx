@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "../../store/store";
 import InputValue from "../shared/InputValue";
 
 const Instantiate = () => {
   const dispatch = useDispatch();
   const [url, setUrl] = useState<string>("ws://127.0.0.1:9944");
+  const { connectStatus } = useSelector((store) => store.ui);
+  let history = useHistory();
+  useEffect(() => {
+    if (connectStatus === "Connected") history.push("/upload");
+  }, [connectStatus, history]);
+
   const onConnect = () => dispatch({ type: "Connect", payload: { url } });
   const onDisconnect = () => dispatch({ type: "Disconnect", payload: { url } });
-  const { connectStatus } = useSelector((store) => store.ui);
+
   return (
     <>
       {connectStatus === "Unconnected" ? (
