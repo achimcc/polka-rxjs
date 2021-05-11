@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Call from "../components/call/Call";
 import CallResults from "../components/call/CallResults";
 import SelectInstance from "../components/call/SelectInstance";
+import { useDispatch } from "../reducers/actions";
 
 interface RouteParams {
   address?: string;
@@ -13,6 +14,10 @@ const CallPage = () => {
   const [selectedAddress, setSelectedAddress] = useState<string | undefined>(
     address
   );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({ type: "ClearCallResults" });
+  }, [dispatch]);
   return (
     <>
       <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans my-3.5">

@@ -20,6 +20,7 @@ type ActionType =
   | "Call"
   | "CallRpc"
   | "CallResult"
+  | "ClearCallResults"
   | "Instantiate"
   | "StartInstantiate";
 
@@ -98,6 +99,10 @@ interface CallRpc extends BaseAction {
   payload: { address: string; method: string };
 }
 
+interface ClearCallResults extends BaseAction {
+  type: "ClearCallResults";
+}
+
 interface ForgetContract extends BaseAction {
   type: "ForgetContract";
   payload: { id: string };
@@ -129,6 +134,7 @@ export type Action<T extends ActionType = ActionType> = (
   | Call
   | CallRpc
   | CallResult
+  | ClearCallResults
   | ForgetContract
   | ForgetInstance
   | Instantiate

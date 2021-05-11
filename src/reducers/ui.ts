@@ -106,6 +106,10 @@ const contractReducer = (
         draft.callResults.push(action.payload);
         break;
       }
+      case "ClearCallResults": {
+        draft.callResults = [];
+        break;
+      }
       case "ForgetContract": {
         const { id } = action.payload;
         draft.contracts = state.contracts.filter((c) => c.id !== id);

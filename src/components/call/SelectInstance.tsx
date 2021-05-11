@@ -6,7 +6,7 @@ interface Props {
   onChange: (address: string) => void;
 }
 const SelectInstance = ({ address, onChange }: Props) => {
-  const { instances } = useSelector((store) => store.ui);
+  const { instances = [] } = useSelector((store) => store.ui);
   const [selectedAddress, setSelectedAddress] = useState<string | undefined>(
     undefined
   );
