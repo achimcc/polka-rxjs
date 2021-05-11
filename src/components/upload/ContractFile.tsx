@@ -9,7 +9,7 @@ interface Props {
 
 const ContractFile = ({ contract: { name, id } }: Props) => {
   const dispatch = useDispatch();
-  const onForget = () => dispatch({ type: "ForgetContract", payload: { id } });
+  const onDelete = () => dispatch({ type: "ForgetContract", payload: { id } });
   const { show, RenderModal } = useModal();
   const onInstantiate = () => {
     dispatch({ type: "StartInstantiate" });
@@ -20,10 +20,10 @@ const ContractFile = ({ contract: { name, id } }: Props) => {
       <p className="w-full text-grey-darkest">{name}</p>
       <p className="w-full text-grey-darkest">{id}</p>
       <button
-        onClick={onForget}
+        onClick={onDelete}
         className="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red"
       >
-        Forget
+        Delete
       </button>
       <button
         onClick={onInstantiate}

@@ -112,6 +112,11 @@ const contractReducer = (
         draft.contracts = state.contracts.filter((c) => c.id !== id);
         break;
       }
+      case "ForgetInstance": {
+        const { address } = action.payload;
+        draft.instances = state.instances.filter((i) => i.address !== address);
+        break;
+      }
       default:
         break;
     }

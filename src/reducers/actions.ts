@@ -13,6 +13,7 @@ type ActionType =
   | "UploadContract"
   | "UploadContractSuccess"
   | "ForgetContract"
+  | "ForgetInstance"
   | "DeployMessage"
   | "UploadWasmSuccess"
   | "CancelDeploy"
@@ -102,6 +103,11 @@ interface ForgetContract extends BaseAction {
   payload: { id: string };
 }
 
+interface ForgetInstance extends BaseAction {
+  type: "ForgetInstance";
+  payload: { address: string };
+}
+
 interface Instantiate extends BaseAction {
   type: "Instantiate";
   payload: { gas: string; endowment: string; id: string };
@@ -124,6 +130,7 @@ export type Action<T extends ActionType = ActionType> = (
   | CallRpc
   | CallResult
   | ForgetContract
+  | ForgetInstance
   | Instantiate
   | Disconnect
   | Disconnected
