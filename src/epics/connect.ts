@@ -21,7 +21,6 @@ const connect: Epic<Action, Action, RootState> = (
       api.on("connected", (s) => {
         console.log("connect: ", s);
       });
-      console.log("api message! ", api);
       return { type: "Connected", payload: api };
     })
   );

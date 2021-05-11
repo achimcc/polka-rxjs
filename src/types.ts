@@ -17,10 +17,14 @@ export interface UIMessage {
 export interface UIContract {
   name: string;
   id: string;
-  address?: string | undefined;
-  methods?: Array<string>;
+  methods: Array<string>;
   wasm: Uint8Array;
   json: AnyJson;
+}
+
+export interface Instance {
+  id: string;
+  address: string;
 }
 
 export interface ContractInstance {

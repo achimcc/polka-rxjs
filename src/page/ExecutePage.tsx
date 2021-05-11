@@ -5,9 +5,11 @@ const ExecutePage = () => {
   const { contracts } = useSelector((store) => store.ui);
   return (
     <>
-      {contracts.map((contract) => (
-        <Contract contract={contract} />
-      ))}
+      <div className="bg-white rounded shadow p-6 m-4 w-full">
+        {contracts.map((contract) => (
+          <Contract contract={contract} />
+        ))}
+      </div>
     </>
   );
 };

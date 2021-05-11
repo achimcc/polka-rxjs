@@ -4,7 +4,7 @@ import Upload from "../components/UploadFile";
 import Contracts from "../components/upload/ContractFiles";
 
 const UploadPage = React.memo(() => {
-  const { show: showUpload, RenderModal } = useModal(); // we could also spread 'hide' here, if we somehow needed it outside of the modal
+  const { show: showUpload, RenderModal } = useModal();
   const onUpload = () => {
     showUpload();
   };

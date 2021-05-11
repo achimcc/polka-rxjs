@@ -2,21 +2,25 @@ import { useState } from "react";
 import { Switch } from "@headlessui/react";
 import { useDispatch } from "../../store/store";
 import { useSelector } from "../../store/store";
+import { Instance } from "../../types";
 
 interface Props {
-  id: string;
+  address: string;
 }
 
-const Call = ({ id }: Props) => {
+const Call = ({ address }: Props) => {
   const dispatch = useDispatch();
-  const { methods = [], address } =
+  const { id } = useSelector((store) =>
+    store.ui.instances.find((i) => i.address === address)
+  ) as Instance;
+  const { methods = [] } =
     useSelector((store) => store.ui.contracts.find((c) => c.id === id)) || {};
   const [method, setMethod] = useState<string>();
   const [rpc, setRpc] = useState<boolean>(true);
   const onCall = () =>
     method &&
     address &&
-    dispatch({ type: rpc ? "CallRpc" : "Call", payload: { id, method } });
+    dispatch({ type: rpc ? "CallRpc" : "Call", payload: { address, method } });
   return (
     <>
       <>

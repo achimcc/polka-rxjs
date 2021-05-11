@@ -1,6 +1,12 @@
 import { Action } from "./actions";
 import { obtainMessage } from "../utils/convertResults";
-import { ContractStatus, UIMessage, UIContract, ConnectStatus } from "../types";
+import {
+  ContractStatus,
+  UIMessage,
+  UIContract,
+  ConnectStatus,
+  Instance,
+} from "../types";
 import { produce } from "immer";
 import { CodeSubmittableResult } from "@polkadot/api-contract/base";
 import { nanoid } from "nanoid";
@@ -14,6 +20,7 @@ export interface Instantiate {
 export interface UiState {
   instantiate: Instantiate;
   contracts: Array<UIContract>;
+  instances: Array<Instance>;
   callResults: Array<UIMessage>;
   connectStatus: ConnectStatus;
   connectUrl: string;
@@ -27,6 +34,7 @@ const initialState: UiState = {
     id: "",
   },
   contracts: [],
+  instances: [],
   callResults: [],
   connectStatus: "Unconnected",
   connectUrl: "",
@@ -85,10 +93,11 @@ const contractReducer = (
             (result as CodeSubmittableResult<
               "rxjs"
             >).contract?.address.toString() || "error";
-          const index = draft.contracts.findIndex(
-            (c) => c.id === draft.instantiate.id
-          );
-          draft.contracts[index].address = address;
+          const instance: Instance = {
+            id: draft.instantiate.id,
+            address,
+          };
+          draft.instances.push(instance);
         }
         break;
       }

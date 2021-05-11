@@ -19,7 +19,8 @@ const ExecutePage = () => {
       <div className="h-100 w-full flex items-center justify-start bg-teal-lightest font-sans my-3.5">
         {selectedId && <Call id={selectedId} />}
       </div>
-      <div className="h-100 w-full ">
+      <div className="bg-white rounded shadow p-6 m-4 w-full">
+        Results:
         <CallResults />
       </div>
     </>

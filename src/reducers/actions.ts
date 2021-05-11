@@ -96,12 +96,12 @@ interface CallResult extends BaseAction {
 
 interface Call extends BaseAction {
   type: "Call";
-  payload: { id: string; method: string };
+  payload: { address: string; method: string };
 }
 
 interface CallRpc extends BaseAction {
   type: "CallRpc";
-  payload: { id: string; method: string };
+  payload: { address: string; method: string };
 }
 
 interface ForgetContract extends BaseAction {
