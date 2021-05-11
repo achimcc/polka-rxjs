@@ -4,7 +4,7 @@ import Upload from "../components/UploadFile";
 import Contracts from "../components/upload/ContractFiles";
 
 const UploadPage = React.memo(() => {
-  const { show: showUpload, RenderModal } = useModal();
+  const { show: showUpload, RenderModal, hide: hideUpload } = useModal();
   const onUpload = () => {
     showUpload();
   };
@@ -20,7 +20,7 @@ const UploadPage = React.memo(() => {
           </button>
         </div>
         <RenderModal id="upload-modal">
-          <Upload />
+          <Upload onSave={hideUpload} />
         </RenderModal>
       </div>
       <div id="upload-modal" />

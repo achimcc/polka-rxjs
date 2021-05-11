@@ -23,7 +23,7 @@ const Instantiate = ({ id }: Props) => {
   };
   const statusComponent = {
     Endpoint: Connect,
-    Upload: UploadFile,
+    Upload: () => UploadFile({ onSave: () => {} }),
     Settings: () => Settings({ id }),
     Deploying: () => Deploy({ messages: deployMessages, isDeploying: true }),
     Deployed: () => Deploy({ messages: deployMessages, isDeploying: false }),
