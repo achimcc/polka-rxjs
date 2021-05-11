@@ -124,26 +124,7 @@ type Actions =
 
 type ActionTypes = Actions["type"];
 
-export type Action<T extends ActionTypes = ActionTypes> = (
-  | UploadContract
-  | UploadContractSuccess
-  | Deploy
-  | DeployMessage
-  | Connect
-  | Connected
-  | UploadWasmSuccess
-  | CancelDeploy
-  | Call
-  | CallRpc
-  | CallResult
-  | ClearCallResults
-  | ForgetContract
-  | ForgetInstance
-  | Instantiate
-  | Disconnect
-  | Disconnected
-  | StartInstantiate
-) & { type: T };
+export type Action<T extends ActionTypes = ActionTypes> = Actions & { type: T };
 
 type DispatchType = (args: Action) => Action;
 
