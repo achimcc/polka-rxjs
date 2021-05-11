@@ -102,7 +102,7 @@ interface StartInstantiate extends BaseAction {
   type: "StartInstantiate";
 }
 
-type Actions =
+type AllActions =
   | UploadContract
   | UploadContractSuccess
   | Deploy
@@ -122,16 +122,11 @@ type Actions =
   | Disconnected
   | StartInstantiate;
 
-type ActionTypes = Actions["type"];
+type ActionTypes = AllActions["type"];
 
-export type Action<T extends ActionTypes = ActionTypes> = Actions & { type: T };
-
-type DispatchType = (args: Action) => Action;
-
-export function useDispatch(): DispatchType {
-  const dispatch = _useDispatch();
-  return (action: Action) => dispatch(action);
-}
+export type Action<T extends ActionTypes = ActionTypes> = AllActions & {
+  type: T;
+};
 
 export function isType<P extends ActionTypes>(type: P) {
   return (action: Action): action is Action<P> => action.type === type;
