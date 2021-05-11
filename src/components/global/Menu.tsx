@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { FaFileContract } from "react-icons/fa";
-import { FiPlayCircle } from "react-icons/fi";
+import { FiPlayCircle, FiUpload } from "react-icons/fi";
 import { useSelector } from "../../store/store";
 import ConnectIcon from "./ConnectIcon";
 
@@ -33,7 +33,7 @@ const Menu = () => {
               activeClassName="bg-green-800"
             >
               <div>
-                <FaFileContract className="inline-block" />
+                <FiUpload className="inline-block" />
               </div>
             </NavLink>
           </li>
@@ -46,7 +46,7 @@ const Menu = () => {
               className="h-full w-full bg-gray-800 hover:bg-gray-700 block p-3"
               activeClassName="bg-green-800"
             >
-              <FiPlayCircle className="inline-block" />
+              <FaFileContract className="inline-block" />
             </NavLink>
           </li>
           <li
