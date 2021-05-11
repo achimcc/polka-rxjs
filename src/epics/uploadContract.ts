@@ -16,7 +16,7 @@ const uploadContract: Epic<Action, Action, RootState> = (
     filter(isType("UploadContract")),
     mergeMap((action) => {
       //     const promise = (action.payload as File).text();
-      const file = action.payload as File;
+      const { file } = action.payload;
       const promise = new Promise<{ data: Uint8Array; name: string }>(
         (resolve) => {
           const reader = new FileReader();

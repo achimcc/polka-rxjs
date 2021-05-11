@@ -4,34 +4,14 @@ import { Action as DefaultAction } from "redux";
 import { useDispatch as _useDispatch } from "react-redux";
 import { ContractStatus, UIMessage } from "../types";
 
-type ActionType =
-  | "Connect"
-  | "Connected"
-  | "Disconnect"
-  | "Disconnected"
-  | "Deploy"
-  | "UploadContract"
-  | "UploadContractSuccess"
-  | "ForgetContract"
-  | "ForgetInstance"
-  | "DeployMessage"
-  | "UploadWasmSuccess"
-  | "CancelDeploy"
-  | "Call"
-  | "CallRpc"
-  | "CallResult"
-  | "ClearCallResults"
-  | "Instantiate"
-  | "StartInstantiate";
-
-interface BaseAction extends DefaultAction<ActionType> {
-  type: ActionType;
-  payload?: object | number | string;
+interface BaseAction extends DefaultAction<string> {
+  type: string;
+  payload?: object;
 }
 
 interface UploadContract extends BaseAction {
   type: "UploadContract";
-  payload: File;
+  payload: { file: File };
 }
 
 interface UploadContractSuccess extends BaseAction {
@@ -64,7 +44,7 @@ interface Connect extends BaseAction {
 
 interface Connected extends BaseAction {
   type: "Connected";
-  payload: ApiRx;
+  payload: { api: ApiRx };
 }
 
 interface Disconnect extends BaseAction {
@@ -77,7 +57,7 @@ interface Disconnected extends BaseAction {
 
 interface UploadWasmSuccess extends BaseAction {
   type: "UploadWasmSuccess";
-  payload: Uint8Array;
+  payload: { wasm: Uint8Array };
 }
 
 interface CancelDeploy extends BaseAction {
@@ -86,7 +66,7 @@ interface CancelDeploy extends BaseAction {
 
 interface CallResult extends BaseAction {
   type: "CallResult";
-  payload: UIMessage;
+  payload: { message: UIMessage };
 }
 
 interface Call extends BaseAction {
@@ -122,7 +102,29 @@ interface StartInstantiate extends BaseAction {
   type: "StartInstantiate";
 }
 
-export type Action<T extends ActionType = ActionType> = (
+type Actions =
+  | UploadContract
+  | UploadContractSuccess
+  | Deploy
+  | DeployMessage
+  | Connect
+  | Connected
+  | UploadWasmSuccess
+  | CancelDeploy
+  | Call
+  | CallRpc
+  | CallResult
+  | ClearCallResults
+  | ForgetContract
+  | ForgetInstance
+  | Instantiate
+  | Disconnect
+  | Disconnected
+  | StartInstantiate;
+
+type ActionTypes = Actions["type"];
+
+export type Action<T extends ActionTypes = ActionTypes> = (
   | UploadContract
   | UploadContractSuccess
   | Deploy
@@ -150,6 +152,6 @@ export function useDispatch(): DispatchType {
   return (action: Action) => dispatch(action);
 }
 
-export function isType<P extends ActionType>(type: P) {
+export function isType<P extends ActionTypes>(type: P) {
   return (action: Action): action is Action<P> => action.type === type;
 }

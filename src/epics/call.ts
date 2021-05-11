@@ -41,7 +41,7 @@ const deploy: Epic<Action, Action, RootState> = (
       const message = obtainMessage(response);
       return {
         type: "CallResult",
-        payload: message,
+        payload: { message },
       };
     })
   );

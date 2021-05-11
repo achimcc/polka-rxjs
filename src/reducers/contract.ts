@@ -22,7 +22,7 @@ const contractReducer = (
   produce(state, (draft: ContractState) => {
     switch (action.type) {
       case "Connected": {
-        draft.api = action.payload;
+        draft.api = action.payload.api;
         break;
       }
       case "Disconnected": {
@@ -30,7 +30,7 @@ const contractReducer = (
         break;
       }
       case "UploadWasmSuccess": {
-        draft.wasm = action.payload;
+        draft.wasm = action.payload.wasm;
         break;
       }
     }

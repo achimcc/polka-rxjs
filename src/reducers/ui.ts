@@ -103,7 +103,7 @@ const contractReducer = (
         break;
       }
       case "CallResult": {
-        draft.callResults.push(action.payload);
+        draft.callResults.push(action.payload.message);
         break;
       }
       case "ClearCallResults": {

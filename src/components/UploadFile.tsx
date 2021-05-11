@@ -17,7 +17,7 @@ const UploadFile = ({ onSave }: Props) => {
   };
   const _onSave = () => {
     if (!file) return;
-    dispatch({ type: "UploadContract", payload: file });
+    dispatch({ type: "UploadContract", payload: { file } });
     onSave();
   };
 
