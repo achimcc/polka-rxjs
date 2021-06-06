@@ -2,11 +2,11 @@
 // and @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { hexToU8a, isHex, u8aToString } from "@polkadot/util";
+import { hexToU8a, isHex, u8aToString } from '@polkadot/util';
 
-const BYTE_STR_0 = "0".charCodeAt(0);
-const BYTE_STR_X = "x".charCodeAt(0);
-const STR_NL = "\n";
+const BYTE_STR_0 = '0'.charCodeAt(0);
+const BYTE_STR_X = 'x'.charCodeAt(0);
+const STR_NL = '\n';
 export const NOOP = (): void => undefined;
 
 export function convertResult(result: ArrayBuffer): Uint8Array {

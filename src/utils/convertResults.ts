@@ -1,9 +1,9 @@
-import { ApiRx } from "@polkadot/api";
-import { ISubmittableResult } from "@polkadot/types/types";
-import { UIMessage, ContractStatus } from "../types";
+import { ApiRx } from '@polkadot/api';
+import { ISubmittableResult } from '@polkadot/types/types';
+import { UIMessage, ContractStatus } from '../types';
 
 const obtainErrorMessage = ({ dispatchError }: ISubmittableResult): string => {
-  if (!dispatchError) return "no Error";
+  if (!dispatchError) return 'no Error';
   if (dispatchError.isModule) {
     try {
       const mod = dispatchError.asModule;
@@ -15,7 +15,7 @@ const obtainErrorMessage = ({ dispatchError }: ISubmittableResult): string => {
   } else if (dispatchError.isToken) {
     return `${dispatchError.type}.${dispatchError.asToken.type}`;
   }
-  return "unknown error";
+  return 'unknown error';
 };
 
 export const obtainMessage = (result: ISubmittableResult): UIMessage => {
@@ -30,15 +30,12 @@ export const obtainMessage = (result: ISubmittableResult): UIMessage => {
 };
 
 export const obtainStatus = (result: ISubmittableResult): ContractStatus => {
-  if (result.dispatchError) return "Error";
-  else if (result.isFinalized) return "Deployed";
-  else return "Deploying";
+  if (result.dispatchError) return 'Error';
+  else if (result.isFinalized) return 'Instantiated';
+  else return 'Instantiating';
 };
 
-export const obtainAddress = (
-  result: ISubmittableResult,
-  api: ApiRx
-): string => {
+export const obtainAddress = (result: ISubmittableResult, api: ApiRx): string => {
   const address = result.events
     .filter(({ event }) => api.events.contracts.Instantiated.is(event))
     .map(
@@ -50,5 +47,5 @@ export const obtainAddress = (
         return contract.toString();
       }
     );
-  return address.pop() || "Error";
+  return address.pop() || 'Error';
 };
